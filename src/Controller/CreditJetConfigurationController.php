@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace PrestaShop\Module\CreditJet\Controller;
@@ -11,9 +12,11 @@ use Context;
 use Db;
 use DbQuery;
 
-class CreditJetConfigurationController extends FrameworkBundleAdminController {
-    
-    public function index(Request $request): Response {
+class CreditJetConfigurationController extends FrameworkBundleAdminController
+{
+
+    public function index(Request $request): Response
+    {
         $textFormDataHandler = $this->get('prestashop.module.creditjet.creditjet_configuration_form_handler');
 
         $textForm = $textFormDataHandler->getForm();
@@ -30,7 +33,7 @@ class CreditJetConfigurationController extends FrameworkBundleAdminController {
 
             $this->flashErrors($errors);
         }
-        
+
         $context = Context::getContext();
         $link_to_create_schema_creditjet = $context->link->getModuleLink('creditjet', 'createschema', []);
         $link_to_delete_schema_creditjet = $context->link->getModuleLink('creditjet', 'deleteschema', []);
@@ -44,7 +47,8 @@ class CreditJetConfigurationController extends FrameworkBundleAdminController {
         ]);
     }
 
-    public function getAllJetKopRows() {
+    public function getAllJetKopRows()
+    {
         $sql = new DbQuery();
         $sql->select('*');
         $sql->from('jet_kop');

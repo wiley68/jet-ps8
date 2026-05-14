@@ -9,12 +9,12 @@ class CreditJetCreateschemaModuleFrontController extends ModuleFrontController {
         $this->result['success'] = 'unsuccess';
         $this->result['text'] = '';
 
-        $jet_product_id = filter_var(Tools::getValue('jet_product_id', ''), FILTER_SANITIZE_STRING);
+        $jet_product_id = htmlspecialchars(strip_tags((string) Tools::getValue('jet_product_id', '')), ENT_QUOTES, 'UTF-8');
         $jet_product_percent = filter_var(Tools::getValue('jet_product_percent', -1), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-        $jet_product_meseci = filter_var(Tools::getValue('jet_product_meseci', ''), FILTER_SANITIZE_STRING);
+        $jet_product_meseci = htmlspecialchars(strip_tags((string) Tools::getValue('jet_product_meseci', '')), ENT_QUOTES, 'UTF-8');
         $jet_product_price = filter_var(Tools::getValue('jet_product_price', 0), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-        $jet_product_start = filter_var(Tools::getValue('jet_product_start', ''), FILTER_SANITIZE_STRING);
-        $jet_product_end = filter_var(Tools::getValue('jet_product_end', ''), FILTER_SANITIZE_STRING);
+        $jet_product_start = htmlspecialchars(strip_tags((string) Tools::getValue('jet_product_start', '')), ENT_QUOTES, 'UTF-8');
+        $jet_product_end = htmlspecialchars(strip_tags((string) Tools::getValue('jet_product_end', '')), ENT_QUOTES, 'UTF-8');
 
         $creditjet_categories_current = [
             "jet_product_id" => $jet_product_id,

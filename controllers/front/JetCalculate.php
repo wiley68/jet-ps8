@@ -1,16 +1,18 @@
 <?php
-require_once _PS_MODULE_DIR_.'creditjet/classes/JetCreditModel.php';
+require_once _PS_MODULE_DIR_ . 'creditjet/classes/JetCreditModel.php';
 
-class CreditJetJetCalculateModuleFrontController extends ModuleFrontController {
+class CreditJetJetCalculateModuleFrontController extends ModuleFrontController
+{
 
-	public function initContent() {
+	public function initContent()
+	{
 		parent::initContent();
 		$json = [];
 
 		$jet_priceall = filter_var(Tools::getValue('jet_priceall', 0.00), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 		$jet_parva = filter_var(Tools::getValue('jet_parva', 0.00), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 		$jet_vnoski = filter_var(Tools::getValue('jet_vnoski', (int)Configuration::get("JET_VNOSKI_DEFAULT")), FILTER_SANITIZE_NUMBER_INT);
-		$jet_product_id = filter_var(Tools::getValue('jet_product_id', ''), FILTER_SANITIZE_STRING);
+		$jet_product_id = htmlspecialchars(strip_tags((string) Tools::getValue('jet_product_id', '')), ENT_QUOTES, 'UTF-8');
 
 		$jet_card_in = (int)Configuration::get("JET_CARD_IN");
 
@@ -50,6 +52,14 @@ class CreditJetJetCalculateModuleFrontController extends ModuleFrontController {
 		if ($_minprice > $jet_total_credit_price) {
 			$jet_show_button = false;
 		}
+
+		$jet_vnoska_card = 0.0;
+		$jet_gprm_card = 0.0;
+		$jet_glp_card = 0.0;
+		$jet_gpr_card = 0.0;
+		$jet_obshto_card = 0.0;
+		$jet_vnoska_card_second = 0.0;
+		$jet_obshto_card_second = 0.0;
 
 		$jet_vnoska = (($jet_total_credit_price / $jet_vnoski) * (1 + ($jet_vnoski * $jet_purcent) / 100));
 		if ($jet_card_in == 1) {
@@ -142,10 +152,12 @@ class CreditJetJetCalculateModuleFrontController extends ModuleFrontController {
 		die(json_encode($json));
 	}
 
-	public function RATE($nper, $pmt, $pv, $fv = 0.0, $type = 0, $guess = 0.1) {
+	public function RATE(float $nper, float $pmt, float $pv, float $fv = 0.0, int $type = 0, float $guess = 0.1): float
+	{
 		$rate = $guess;
 		if (abs($rate) < JETCREDIT_FINANCIAL_PRECISION) {
 			$y = $pv * (1 + $nper * $rate) + $pmt * (1 + $rate * $type) * $nper + $fv;
+			$f = exp($nper * log(1 + $rate));
 		} else {
 			$f = exp($nper * log(1 + $rate));
 			$y = $pv * $f + $pmt * (1 / $rate + $type) * ($f - 1) + $fv;

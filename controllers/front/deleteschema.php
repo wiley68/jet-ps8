@@ -1,12 +1,14 @@
 <?php
-require_once _PS_MODULE_DIR_.'creditjet/classes/JetCreditModel.php';
+require_once _PS_MODULE_DIR_ . 'creditjet/classes/JetCreditModel.php';
 
-class CreditJetDeleteschemaModuleFrontController extends ModuleFrontController {
-    public $result = null;
+class CreditJetDeleteschemaModuleFrontController extends ModuleFrontController
+{
+    /** @var array{success: string} */
+    public array $result = ['success' => 'unsuccess'];
 
-    public function initContent() {
+    public function initContent()
+    {
         $this->ajax = true;
-        $this->result['success'] = 'unsuccess';
 
         if (null !== Tools::getValue('jet_product_id')) {
             $jet_product_id = Tools::getValue('jet_product_id');
@@ -20,8 +22,9 @@ class CreditJetDeleteschemaModuleFrontController extends ModuleFrontController {
         }
         parent::initContent();
     }
-    
-    public function displayAjax() {
+
+    public function displayAjax()
+    {
         die(json_encode($this->result));
     }
 }

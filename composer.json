@@ -10,8 +10,14 @@
   ],
   "autoload": {
     "psr-4": {
-      "PrestaShop\\Module\\CreditJet\\": "src/"
-    }
+      "PrestaShop\\Module\\CreditJet\\": "src/",
+      "PrestaShopBundle\\Controller\\Admin\\": "stubs/PrestaShopBundle/Controller/Admin/"
+    },
+    "files": [
+      "stubs/prestashop-core-payment-option.php",
+      "stubs/prestashop-bundle-form-types.php",
+      "stubs/prestashop-legacy-types.php"
+    ]
   },
   "require": {
     "php": "^8.1"

@@ -4,21 +4,25 @@
     font-family: "Roboto Condensed", sans-serif !important;
     letter-spacing: 0px !important;
 }
+
 #jet-product-popup-container * {
     font-family: "Roboto Condensed", sans-serif !important;
     letter-spacing: 0px !important;
 }
+
 .jet_table {
     padding: 0px !important;
     margin: 0px !important;
     border: 0px none transparent !important;
     background: transparent !important;
 }
+
 .jet_button_table {
     padding: 2px 0px !important;
     text-align: center !important;
     border: 0px none transparent !important;
 }
+
 .jet_button_table p {
     padding: 0px !important;
     color: #01A66C !important;
@@ -28,6 +32,7 @@
     background-color: transparent !important;
     font-family: 'Roboto Condensed', sans-serif !important;
 }
+
 .jet_button_div_txt {
     width: 100% !important;
     font-family: 'Roboto Condensed', sans-serif !important;
@@ -38,6 +43,7 @@
     background-color: transparent !important;
     color: #01A66C !important;
 }
+
 .jet_table_img {
     padding: 0px !important;
     margin: 0px !important;
@@ -45,20 +51,25 @@
     border: 0px none transparent !important;
     background: transparent !important;
 }
+
 .jet_logo {
     max-width: 155px !important;
     max-height: 69px !important;
     cursor: pointer !important;
 }
+
 .jet_logo_big {
     vertical-align: bottom !important;
-    width:200px !important;
+    width: 200px !important;
     padding-bottom: 10px !important;
 }
+
 /* calculator popup */
-#jet-product-popup-container, #jet-product-popup-container * {
+#jet-product-popup-container,
+#jet-product-popup-container * {
     font-family: "Roboto Condensed", sans-serif !important;
 }
+
 .modalpayment_jet {
     display: none;
     position: fixed !important;
@@ -68,10 +79,11 @@
     width: 100% !important;
     height: 100% !important;
     overflow: auto !important;
-    background-color: rgb(0,0,0) !important;
-    background-color: rgba(0,0,0,0.4) !important;
-    padding-top:20px !important;
+    background-color: rgb(0, 0, 0) !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    padding-top: 20px !important;
 }
+
 .modalpayment_jetm {
     display: none;
     position: fixed !important;
@@ -82,9 +94,10 @@
     width: 100% !important;
     height: 100vh !important;
     overflow: auto !important;
-    background-color: rgb(0,0,0) !important;
-    background-color: rgba(0,0,0,0.4) !important;
+    background-color: rgb(0, 0, 0) !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
 }
+
 .modalpayment-content_jet {
     position: relative !important;
     margin: auto !important;
@@ -92,6 +105,7 @@
     max-width: 1100px !important;
     border-radius: 3px !important;
 }
+
 .jet_body {
     display: flex !important;
     flex-direction: column !important;
@@ -104,6 +118,7 @@
     border: 1px solid #16a34a !important;
     box-shadow: 2px 2px 10px #6ee7b7 !important;
 }
+
 .jet_PopUp_Detailed_v1 {
     border-radius: 3px !important;
     width: 1100px !important;
@@ -111,12 +126,14 @@
     overflow: none !important;
     margin: auto !important;
 }
+
 .jetm_PopUp_Detailed_v1 {
     width: 100% !important;
     height: 100% !important;
     background-color: #ffffff !important;
     overflow: none !important;
 }
+
 .jet_Mask {
     display: flex !important;
     flex-direction: column !important;
@@ -125,11 +142,13 @@
     -webkit-box-shadow: 0px 0px 30px 0px #000000 !important;
     box-shadow: 0px 0px 30px 0px #000000 !important;
 }
+
 .jetm_Mask {
     display: flex !important;
     flex-direction: column !important;
     background-color: #ffffff !important;
 }
+
 .jet_row {
     display: flex !important;
     -webkit-box-sizing: border-box !important;
@@ -138,9 +157,11 @@
     width: 100% !important;
     padding: 0px 15px !important;
 }
+
 .jet_row:first-child {
     margin-top: 10px !important;
 }
+
 .jet_column_left {
     display: flex !important;
     -webkit-box-sizing: border-box !important;
@@ -155,6 +176,7 @@
     background-color: transparent !important;
     color: #052e16 !important;
 }
+
 .jetm_column_left {
     display: flex !important;
     -webkit-box-sizing: border-box !important;
@@ -169,6 +191,7 @@
     background-color: transparent !important;
     color: #052e16 !important;
 }
+
 .jet_column_right {
     display: flex !important;
     -webkit-box-sizing: border-box !important;
@@ -179,6 +202,7 @@
     justify-content: right !important;
     height: 58px !important;
 }
+
 .jetm_column_right {
     display: flex !important;
     -webkit-box-sizing: border-box !important;
@@ -190,7 +214,9 @@
     justify-content: right !important;
     gap: 5px !important;
 }
-input[type="text"].jet_input_text_active, input[type="number"].jet_input_text_active{
+
+input[type="text"].jet_input_text_active,
+input[type="number"].jet_input_text_active {
     flex: 1 !important;
     font-weight: 600 !important;
     font-size: 20px !important;
@@ -202,11 +228,15 @@ input[type="text"].jet_input_text_active, input[type="number"].jet_input_text_ac
     margin: 0px !important;
     padding: 20px !important;
     height: 48px !important;
-    -webkit-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.3) !important;
-    box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.3) !important;
+    -webkit-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.3) !important;
     border-radius: 3px !important;
 }
-input[type="text"].jet_input_text_active:active, input[type="number"].jet_input_text_active:active, input[type="text"].jet_input_text_active:focus, input[type="number"].jet_input_text_active:focus{
+
+input[type="text"].jet_input_text_active:active,
+input[type="number"].jet_input_text_active:active,
+input[type="text"].jet_input_text_active:focus,
+input[type="number"].jet_input_text_active:focus {
     flex: 1 !important;
     font-weight: 600 !important;
     font-size: 20px !important;
@@ -218,18 +248,23 @@ input[type="text"].jet_input_text_active:active, input[type="number"].jet_input_
     margin: 0px !important;
     padding: 20px !important;
     height: 48px !important;
-    -webkit-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.3) !important;
-    box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.3) !important;
+    -webkit-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.3) !important;
     border-radius: 3px !important;
     outline: none !important;
 }
-input[type="text"].jet_input_text_active.jet_left, input[type="number"].jet_input_text_active.jet_left {
+
+input[type="text"].jet_input_text_active.jet_left,
+input[type="number"].jet_input_text_active.jet_left {
     text-align: left;
 }
-input[type="text"].jet_input_text_active.error, input[type="number"].jet_input_text_active.error {
+
+input[type="text"].jet_input_text_active.error,
+input[type="number"].jet_input_text_active.error {
     border: 1px solid #ED1C24;
     color: #ED1C24;
 }
+
 .jet_button_preizcisli {
     height: 48px !important;
     background-color: #166534 !important;
@@ -243,18 +278,20 @@ input[type="text"].jet_input_text_active.error, input[type="number"].jet_input_t
     margin-left: 5px !important;
     color: #f0fdf4 !important;
     cursor: pointer !important;
-    -webkit-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.4) !important;
-    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.4) !important;
+    -webkit-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.4) !important;
     user-select: none !important;
     -moz-user-select: none !important;
     -khtml-user-select: none !important;
     -webkit-user-select: none !important;
     -o-user-select: none !important;
 }
+
 .jet_button_preizcisli:hover {
     background-color: #14532d !important;
     color: #f0fdf4 !important;
 }
+
 .jet_input_text {
     display: flex !important;
     -webkit-box-sizing: border-box !important;
@@ -268,14 +305,16 @@ input[type="text"].jet_input_text_active.error, input[type="number"].jet_input_t
     margin: 0px !important;
     padding: 0px 20px !important;
     height: 48px !important;
-    -webkit-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.3) !important;
-    box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.3) !important;
+    -webkit-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.3) !important;
     border-radius: 3px !important;
 }
+
 .jet_input_text.jet_disable {
     background-color: #EEEEEE !important;
 }
-.jet_input_text > div:first-child {
+
+.jet_input_text>div:first-child {
     display: flex !important;
     -webkit-box-sizing: border-box !important;
     -moz-box-sizing: border-box !important;
@@ -294,7 +333,8 @@ input[type="text"].jet_input_text_active.error, input[type="number"].jet_input_t
     text-align: right !important;
     color: #14532d !important;
 }
-.jet_input_text > div:last-child {
+
+.jet_input_text>div:last-child {
     display: flex !important;
     -webkit-box-sizing: border-box !important;
     -moz-box-sizing: border-box !important;
@@ -313,9 +353,11 @@ input[type="text"].jet_input_text_active.error, input[type="number"].jet_input_t
     text-align: right !important;
     color: #14532d !important;
 }
-.jet_input_text > div:last-child > span {
+
+.jet_input_text>div:last-child>span {
     padding-right: 2px !important;
 }
+
 select.jet_input_text {
     flex: 1 !important;
     font-weight: 600 !important;
@@ -330,7 +372,9 @@ select.jet_input_text {
     border-radius: 3px !important;
     outline: none !important;
 }
-select.jet_input_text:active, select.creditjet_input_text:focus{
+
+select.jet_input_text:active,
+select.creditjet_input_text:focus {
     flex: 1 !important;
     font-weight: 600 !important;
     font-size: 20px !important;
@@ -344,7 +388,8 @@ select.jet_input_text:active, select.creditjet_input_text:focus{
     border-radius: 3px !important;
     outline: none !important;
 }
-.jet_hr{
+
+.jet_hr {
     padding-top: 10px !important;
     width: 100% !important;
     border-top: 0px none white !important;
@@ -352,13 +397,15 @@ select.jet_input_text:active, select.creditjet_input_text:focus{
     border-right: 0px none white !important;
     border-bottom: 1px solid #01a66c !important;
 }
+
 .jet_row_footer {
     display: flex !important;
     flex-direction: column !important;
     flex: 1 !important;
     padding: 5px 15px !important;
 }
-input[type="checkbox"].jet_uslovia{
+
+input[type="checkbox"].jet_uslovia {
     border-radius: 0px !important;
     -ms-transform: scale(1.5) !important;
     -moz-transform: scale(1.5) !important;
@@ -371,12 +418,14 @@ input[type="checkbox"].jet_uslovia{
     -webkit-appearance: checkbox !important;
     opacity: 1 !important;
 }
+
 .jet_span {
     font-style: normal !important;
     font-size: 16px !important;
     line-height: 24px !important;
     color: #01a66c !important;
 }
+
 .jet_row_bottom {
     display: flex !important;
     justify-content: flex-end !important;
@@ -386,6 +435,7 @@ input[type="checkbox"].jet_uslovia{
     background-color: #01a66c !important;
     border-radius: 0px 0px 3px 3px !important;
 }
+
 .jet_btn {
     height: 48px !important;
     background-color: #166534 !important;
@@ -399,8 +449,8 @@ input[type="checkbox"].jet_uslovia{
     margin-left: 5px !important;
     color: #f0fdf4 !important;
     cursor: pointer !important;
-    -webkit-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.4) !important;
-    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.4) !important;
+    -webkit-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.4) !important;
     user-select: none !important;
     -moz-user-select: none !important;
     -khtml-user-select: none !important;
@@ -408,24 +458,29 @@ input[type="checkbox"].jet_uslovia{
     -o-user-select: none !important;
     transition: opacity 0.3s ease !important;
 }
-.jet_btn:hover{
+
+.jet_btn:hover {
     background-color: #14532d !important;
     color: #f0fdf4 !important;
 }
+
 .jet_uslovia_a {
-    color:#01a66c !important;
+    color: #01a66c !important;
     text-decoration: none !important;
     border: none !important;
     outline: none !important;
 }
+
 .jet_uslovia_a:visited {
-    color:#01a66c !important;
+    color: #01a66c !important;
     border: none !important;
     outline: none !important;
 }
+
 .jet_uslovia_a:focus {
     outline: none !important;
 }
+
 .jet_alert_overlay {
     display: none;
     position: fixed !important;
@@ -436,6 +491,7 @@ input[type="checkbox"].jet_uslovia{
     background-color: rgba(0, 0, 0, 0.5) !important;
     z-index: 5000000 !important;
 }
+
 .jet_alert_overlay.show {
     display: block;
 }

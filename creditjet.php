@@ -7,7 +7,7 @@
  * @Publisher: Avalon Ltd
  * @Publisher e-mail: home@avalonbg.com
  * @Owner: Avalon Ltd
- * @Version: 1.8.2
+ * @Version: 1.8.5
  */
 
 declare(strict_types=1);
@@ -43,7 +43,7 @@ class CreditJet extends PaymentModule
     {
         $this->name = 'creditjet';
         $this->tab = 'payments_gateways';
-        $this->version = '1.8.2';
+        $this->version = '1.8.5';
         $this->author = 'Ilko Ivanov';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -197,7 +197,7 @@ class CreditJet extends PaymentModule
         }
     }
 
-    public function checkCurrency($cart)
+    public function checkCurrency(Cart $cart)
     {
         $currency_order = new Currency($cart->id_currency);
         $currencies_module = $this->getCurrency($cart->id_currency);
@@ -331,6 +331,9 @@ class CreditJet extends PaymentModule
         return $this->display(__FILE__, 'creditjet.tpl');
     }
 
+    /**
+     * @param array{cart: Cart} $params
+     */
     public function hookDisplayShoppingCart($params)
     {
         $jet_currency_code = $this->context->currency->iso_code;
@@ -499,6 +502,9 @@ class CreditJet extends PaymentModule
         return $this->display(__FILE__, 'shoppingbag.tpl');
     }
 
+    /**
+     * @param array{cart?: Cart|null} $params
+     */
     public function hookPaymentOptions($params)
     {
         if (empty($params['cart'])) {

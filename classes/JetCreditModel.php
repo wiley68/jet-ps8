@@ -16,13 +16,13 @@ class JetCreditModel extends ObjectModel
     );
 
     public static function insertIfNotExists(
-        $jet_product_id,
-        $jet_product_percent,
-        $jet_product_meseci,
-        $jet_product_price,
-        $jet_product_start,
-        $jet_product_end
-    ) {
+        string $jet_product_id,
+        float $jet_product_percent,
+        string $jet_product_meseci,
+        float $jet_product_price,
+        string $jet_product_start,
+        string $jet_product_end
+    ): bool|int {
         $sql = new DbQuery();
         $sql->select('COUNT(*)');
         $sql->from('jet_kop');
@@ -44,13 +44,14 @@ class JetCreditModel extends ObjectModel
         return 0;
     }
 
-    public static function deleteByJetProductId($jet_product_id)
+    public static function deleteByJetProductId(string $jet_product_id): bool
     {
         $sql = 'DELETE FROM `' . _DB_PREFIX_ . 'jet_kop` WHERE `jet_product_id` = \'' . pSQL($jet_product_id) . '\'';
         return Db::getInstance()->execute($sql);
     }
 
-    private static function fetchFirstValue(DbQuery $sql, $field) {
+    private static function fetchFirstValue(DbQuery $sql, string $field): mixed
+    {
         $db = Db::getInstance();
         $res = $db->query((string)$sql);
 
@@ -76,7 +77,8 @@ class JetCreditModel extends ObjectModel
         return false;
     }
 
-    public static function getPromo($jet_product_id, $jet_vnoski, $jet_total_credit_price) {
+    public static function getPromo(string $jet_product_id, int $jet_vnoski, float $jet_total_credit_price): array
+    {
         $jet_card_in = (int) Configuration::get('JET_CARD_IN');
         $jet_purcent = (float) Configuration::get('JET_PURCENT');
 
