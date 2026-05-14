@@ -467,35 +467,6 @@ namespace {
         }
     }
 
-    if (!class_exists('Currency', false)) {
-        class Currency
-        {
-            public int $id = 0;
-
-            /**
-             * @param int|null $id
-             * @param int|null $id_lang
-             * @param int|null $id_shop
-             */
-            public function __construct($id = null, $id_lang = null, $id_shop = null)
-            {
-                if ($id !== null) {
-                    $this->id = (int) $id;
-                }
-            }
-
-            /**
-             * @param string $isoCode
-             * @param mixed ...$rest
-             * @return int|false
-             */
-            public static function getIdByIsoCode($isoCode, ...$rest)
-            {
-                return false;
-            }
-        }
-    }
-
     if (!class_exists('Language', false)) {
         class Language
         {
@@ -686,29 +657,5 @@ namespace {
                 return $default;
             }
         }
-    }
-
-    if (!class_exists('Controller', false)) {
-        class Controller
-        {
-            /** @var Context */
-            public $context;
-
-            /** @var Module|null */
-            public $module;
-        }
-    }
-
-    if (!class_exists('FrontController', false)) {
-        class FrontController extends Controller
-        {
-            public bool $ajax = false;
-
-            public function initContent() {}
-        }
-    }
-
-    if (!class_exists('ModuleFrontController', false)) {
-        class ModuleFrontController extends FrontController {}
     }
 }
