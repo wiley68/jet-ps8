@@ -1,0 +1,9 @@
+/**
+ * Admin configuration page only — overrides theme .form-horizontal .form-wrapper (83% width).
+ */
+.form-horizontal .creditjet-config-form-wrapper.form-wrapper {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}

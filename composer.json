@@ -10,8 +10,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "PrestaShop\\Module\\CreditJet\\": "src/",
-      "PrestaShopBundle\\Controller\\Admin\\": "stubs/PrestaShopBundle/Controller/Admin/"
+      "PrestaShop\\Module\\CreditJet\\": "src/"
     }
   },
   "require": {

@@ -51,7 +51,36 @@ const delete_creditjet_schema = (id) => {
     });
 };
 
+const creditjetGetActiveConfigurationTab = () => {
+    const $activeTab = $(
+        ".creditjet-config-form-wrapper .nav-tabs .nav-link.active",
+    );
+    if (!$activeTab.length) {
+        return "creditjet-management";
+    }
+
+    const href = $activeTab.attr("href");
+    if (href && href.charAt(0) === "#") {
+        return href.substring(1);
+    }
+
+    return "creditjet-management";
+};
+
 $(document).ready(function () {
+    $("#creditjet-settings-form").on("submit", function () {
+        $("#creditjet_active_tab").val(creditjetGetActiveConfigurationTab());
+    });
+
+    $(".creditjet-config-form-wrapper .nav-tabs .nav-link").on(
+        "shown.bs.tab",
+        function () {
+            $("#creditjet_active_tab").val(
+                creditjetGetActiveConfigurationTab(),
+            );
+        },
+    );
+
     $(document).on("click", ".btn-delete-creditjet-schema", function () {
         const id = $(this).data("jet-product-id");
         if (id !== undefined && id !== "") {

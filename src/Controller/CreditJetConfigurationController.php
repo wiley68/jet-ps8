@@ -14,6 +14,12 @@ use DbQuery;
 
 class CreditJetConfigurationController extends FrameworkBundleAdminController
 {
+    private const CONFIGURATION_TABS = [
+        'creditjet-management',
+        'creditjet-functional',
+        'creditjet-visual',
+        'creditjet-interest-filters',
+    ];
 
     public function index(Request $request): Response
     {
@@ -28,7 +34,9 @@ class CreditJetConfigurationController extends FrameworkBundleAdminController
             if (empty($errors)) {
                 $this->addFlash('success', 'Успешна актуализация');
 
-                return $this->redirectToRoute('credit_jet_configuration_form');
+                return $this->redirectToRoute('credit_jet_configuration_form', [
+                    'active_tab' => $this->resolveActiveTab($request),
+                ]);
             }
 
             $this->flashErrors($errors);
@@ -43,8 +51,24 @@ class CreditJetConfigurationController extends FrameworkBundleAdminController
             'creditJetConfigurationForm' => $textForm->createView(),
             'link_to_create_schema_creditjet' => $link_to_create_schema_creditjet,
             'link_to_delete_schema_creditjet' => $link_to_delete_schema_creditjet,
-            'creditjet_schemes' => $creditjet_schemes
+            'creditjet_schemes' => $creditjet_schemes,
+            'active_tab' => $this->resolveActiveTab($request),
         ]);
+    }
+
+    private function resolveActiveTab(Request $httpRequest): string
+    {
+        if ($httpRequest->isMethod(Request::METHOD_POST)) {
+            $tab = (string) $httpRequest->request->get('creditjet_active_tab', 'creditjet-management');
+        } else {
+            $tab = (string) $httpRequest->query->get('active_tab', 'creditjet-management');
+        }
+
+        if (!in_array($tab, self::CONFIGURATION_TABS, true)) {
+            return 'creditjet-management';
+        }
+
+        return $tab;
     }
 
     public function getAllJetKopRows()
