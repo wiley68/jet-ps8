@@ -43,11 +43,11 @@ final class CreditJetConfigurationDataConfiguration implements DataConfiguration
         $return['jet_status_in'] = $this->configuration->get(static::JET_STATUS_IN);
         $return['jet_email'] = $this->configuration->get(static::JET_EMAIL);
         $return['jet_id'] = $this->configuration->get(static::JET_ID);
-        $return['jet_purcent'] = $this->configuration->get(static::JET_PURCENT);
+        $return['jet_purcent'] = $this->floatConfig(static::JET_PURCENT);
         $return['jet_vnoski_default'] = $this->configuration->get(static::JET_VNOSKI_DEFAULT);
         $return['jet_cart_show'] = $this->configuration->get(static::JET_CART_SHOW);
         $return['jet_card_in'] = $this->configuration->get(static::JET_CARD_IN);
-        $return['jet_purcent_card'] = $this->configuration->get(static::JET_PURCENT_CARD);
+        $return['jet_purcent_card'] = $this->floatConfig(static::JET_PURCENT_CARD);
         $return['jet_count'] = $this->configuration->get(static::JET_COUNT);
         $return['jet_gap'] = $this->configuration->get(static::JET_GAP);
         $return['jet_vnoska'] = $this->configuration->get(static::JET_VNOSKA);
@@ -90,5 +90,18 @@ final class CreditJetConfigurationDataConfiguration implements DataConfiguration
     {
         return
             isset($configuration['jet_status_in']);
+    }
+
+    /**
+     * Configuration винаги връща низ; ChoiceType с float стойности изисква истински float за съвпадение.
+     */
+    private function floatConfig(string $key): ?float
+    {
+        $raw = $this->configuration->get($key);
+        if ($raw === false || $raw === null || $raw === '') {
+            return null;
+        }
+
+        return (float) $raw;
     }
 }

@@ -70,7 +70,36 @@ class CreditJet extends PaymentModule
                 'CREDITJET_NAME',
                 'ПБ лични финанси Кредитен калкулатор'
             ) &&
+            $this->installConfigurationDefaults() &&
             $this->installDb();
+    }
+
+    /**
+     * Първоначални стойности в ps_configuration при нова инсталация.
+     */
+    private function installConfigurationDefaults(): bool
+    {
+        $defaults = [
+            'JET_STATUS_IN' => 1,
+            'JET_EMAIL' => 'pf-online.shop@postbank.bg',
+            'JET_PURCENT' => 1.40,
+            'JET_VNOSKI_DEFAULT' => 12,
+            'JET_CART_SHOW' => 1,
+            'JET_CARD_IN' => 1,
+            'JET_PURCENT_CARD' => 1.40,
+            'JET_GAP' => 0,
+            'JET_VNOSKA' => 1,
+            'JET_MINPRICE' => '75',
+            'JET_EUR' => 2,
+        ];
+
+        foreach ($defaults as $name => $value) {
+            if (!Configuration::updateValue($name, $value)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function uninstall()
