@@ -1,3 +1,12 @@
+const CREDITJET_TAB_STORAGE_KEY = "creditjet_configuration_active_tab";
+
+const CREDITJET_VALID_TABS = [
+    "creditjet-management",
+    "creditjet-functional",
+    "creditjet-visual",
+    "creditjet-interest-filters",
+];
+
 const create_creditjet_schema = () => {
     if (
         $("#jet_product_id").val() !== "" ||
@@ -6,6 +15,8 @@ const create_creditjet_schema = () => {
         $("#jet_product_start").val() !== "" ||
         $("#jet_product_end").val() !== ""
     ) {
+        creditjetPersistActiveTab();
+
         $.ajax({
             url: $("#link_to_create_schema_creditjet").val(),
             type: "POST",
@@ -51,35 +62,161 @@ const delete_creditjet_schema = (id) => {
     });
 };
 
-const creditjetGetActiveConfigurationTab = () => {
-    const $activeTab = $(
-        ".creditjet-config-form-wrapper .nav-tabs .nav-link.active",
-    );
-    if (!$activeTab.length) {
-        return "creditjet-management";
+const creditjetIsValidTab = (tabId) => {
+    return CREDITJET_VALID_TABS.indexOf(tabId) !== -1;
+};
+
+const creditjetSaveTabToSession = (tabId) => {
+    if (!creditjetIsValidTab(tabId)) {
+        return;
     }
 
-    const href = $activeTab.attr("href");
+    try {
+        sessionStorage.setItem(CREDITJET_TAB_STORAGE_KEY, tabId);
+    } catch (e) {
+        // ignore private mode / blocked storage
+    }
+};
+
+const creditjetGetTabFromSession = () => {
+    try {
+        const tabId = sessionStorage.getItem(CREDITJET_TAB_STORAGE_KEY);
+        if (tabId && creditjetIsValidTab(tabId)) {
+            return tabId;
+        }
+    } catch (e) {
+        // ignore
+    }
+
+    return null;
+};
+
+const creditjetGetTabIdFromLink = ($link) => {
+    const href = $link.attr("href");
     if (href && href.charAt(0) === "#") {
         return href.substring(1);
+    }
+
+    return null;
+};
+
+const creditjetReadActiveTabFromNav = () => {
+    const $activeLinks = $(
+        ".creditjet-config-form-wrapper .nav-tabs .nav-link.active",
+    );
+
+    if ($activeLinks.length) {
+        return creditjetGetTabIdFromLink($activeLinks.last());
+    }
+
+    return null;
+};
+
+const creditjetResolveActiveTab = () => {
+    if (creditjetIsValidTab(creditjetActiveTabId)) {
+        return creditjetActiveTabId;
+    }
+
+    const fromSession = creditjetGetTabFromSession();
+    if (fromSession) {
+        return fromSession;
+    }
+
+    const fromNav = creditjetReadActiveTabFromNav();
+    if (fromNav) {
+        return fromNav;
+    }
+
+    const fromInput = $("#creditjet_active_tab").val();
+    if (fromInput && creditjetIsValidTab(String(fromInput))) {
+        return String(fromInput);
     }
 
     return "creditjet-management";
 };
 
-$(document).ready(function () {
-    $("#creditjet-settings-form").on("submit", function () {
-        $("#creditjet_active_tab").val(creditjetGetActiveConfigurationTab());
-    });
+const creditjetSetHiddenActiveTab = (tabId) => {
+    $("#creditjet_active_tab").val(tabId);
+};
 
-    $(".creditjet-config-form-wrapper .nav-tabs .nav-link").on(
-        "shown.bs.tab",
+const creditjetActivateTab = (tabId) => {
+    if (!creditjetIsValidTab(tabId)) {
+        return;
+    }
+
+    const $tabLink = $(
+        '.creditjet-config-form-wrapper .nav-tabs a[data-toggle="tab"][href="#' +
+            tabId +
+            '"]',
+    );
+
+    if ($tabLink.length && typeof $tabLink.tab === "function") {
+        $tabLink.tab("show");
+    }
+};
+
+const creditjetPersistActiveTab = () => {
+    const tabId = creditjetResolveActiveTab();
+    creditjetSaveTabToSession(tabId);
+    creditjetSetHiddenActiveTab(tabId);
+
+    return tabId;
+};
+
+const creditjetRestoreActiveTabOnLoad = () => {
+    const sessionTab = creditjetGetTabFromSession();
+    const inputTab = String($("#creditjet_active_tab").val() || "");
+
+    let tabId = "creditjet-management";
+    if (sessionTab) {
+        tabId = sessionTab;
+    } else if (creditjetIsValidTab(inputTab)) {
+        tabId = inputTab;
+    }
+
+    creditjetSaveTabToSession(tabId);
+    creditjetSetHiddenActiveTab(tabId);
+    creditjetActivateTab(tabId);
+};
+
+$(document).ready(function () {
+    creditjetRestoreActiveTabOnLoad();
+
+    const $settingsForm = $("#creditjet-settings-form");
+
+    $(".creditjet-config-form-wrapper").on(
+        "mousedown click",
+        '.nav-tabs a[data-toggle="tab"]',
         function () {
-            $("#creditjet_active_tab").val(
-                creditjetGetActiveConfigurationTab(),
-            );
+            const tabId = creditjetGetTabIdFromLink($(this));
+            if (creditjetIsValidTab(tabId)) {
+                creditjetSaveTabToSession(tabId);
+                creditjetSetHiddenActiveTab(tabId);
+                creditjetActiveTabId = tabId;
+            }
         },
     );
+
+    $(".creditjet-config-form-wrapper").on(
+        "shown.bs.tab",
+        'a[data-toggle="tab"]',
+        function (e) {
+            const href = $(e.target).attr("href");
+            if (href && href.charAt(0) === "#") {
+                const tabId = href.substring(1);
+                creditjetSaveTabToSession(tabId);
+                creditjetSetHiddenActiveTab(tabId);
+            }
+        },
+    );
+
+    $settingsForm.on("submit", function () {
+        creditjetPersistActiveTab();
+    });
+
+    $("#save-button").on("mousedown click", function () {
+        creditjetPersistActiveTab();
+    });
 
     $(document).on("click", ".btn-delete-creditjet-schema", function () {
         const id = $(this).data("jet-product-id");

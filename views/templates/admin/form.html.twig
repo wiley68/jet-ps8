@@ -228,5 +228,121 @@
 
 {% block javascripts %}
 {{ parent() }}
-<script src="{{ asset('../modules/creditjet/views/js/creditjetForms.js') }}"></script>
+<script>
+    (function () {
+        var storageKey = 'creditjet_configuration_active_tab';
+        var validTabs = [
+            'creditjet-management',
+            'creditjet-functional',
+            'creditjet-visual',
+            'creditjet-interest-filters'
+        ];
+
+        function isValidTab(tabId) {
+            return validTabs.indexOf(tabId) !== -1;
+        }
+
+        function saveTab(tabId) {
+            if (!isValidTab(tabId)) {
+                return;
+            }
+
+            try {
+                window.sessionStorage.setItem(storageKey, tabId);
+            } catch (e) {
+                // sessionStorage can be blocked in some browser modes.
+            }
+
+            var input = document.getElementById('creditjet_active_tab');
+            if (input) {
+                input.value = tabId;
+            }
+        }
+
+        function readStoredTab() {
+            try {
+                var tabId = window.sessionStorage.getItem(storageKey);
+                if (isValidTab(tabId)) {
+                    return tabId;
+                }
+            } catch (e) {
+                // ignore
+            }
+
+            return null;
+        }
+
+        function readActiveTab() {
+            var activeLink = document.querySelector('.creditjet-config-form-wrapper .nav-tabs .nav-link.active');
+            if (activeLink && activeLink.hash) {
+                return activeLink.hash.substring(1);
+            }
+
+            var input = document.getElementById('creditjet_active_tab');
+            return input && isValidTab(input.value) ? input.value : 'creditjet-management';
+        }
+
+        function activateTab(tabId) {
+            if (!isValidTab(tabId)) {
+                return;
+            }
+
+            var selector = '.creditjet-config-form-wrapper .nav-tabs a[href="#' + tabId + '"]';
+            if (window.jQuery && window.jQuery.fn && typeof window.jQuery.fn.tab === 'function') {
+                window.jQuery(selector).tab('show');
+                return;
+            }
+
+            document.querySelectorAll('.creditjet-config-form-wrapper .nav-tabs .nav-link').forEach(function (link) {
+                var isActive = link.hash === '#' + tabId;
+                link.classList.toggle('active', isActive);
+                link.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+
+            document.querySelectorAll('.creditjet-config-form-wrapper .tab-content .tab-pane').forEach(function (pane) {
+                var isActive = pane.id === tabId;
+                pane.classList.toggle('show', isActive);
+                pane.classList.toggle('active', isActive);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var initialTab = readStoredTab() || readActiveTab();
+            saveTab(initialTab);
+            activateTab(initialTab);
+
+            document.querySelectorAll('.creditjet-config-form-wrapper .nav-tabs a[data-toggle="tab"]').forEach(function (link) {
+                link.addEventListener('mousedown', function () {
+                    if (link.hash) {
+                        saveTab(link.hash.substring(1));
+                    }
+                });
+                link.addEventListener('click', function () {
+                    if (link.hash) {
+                        saveTab(link.hash.substring(1));
+                    }
+                });
+            });
+
+            var saveButton = document.getElementById('save-button');
+            if (saveButton) {
+                saveButton.addEventListener('mousedown', function () {
+                    saveTab(readActiveTab());
+                });
+                saveButton.addEventListener('click', function () {
+                    saveTab(readActiveTab());
+                });
+            }
+
+            var form = document.getElementById('creditjet-settings-form');
+            if (form) {
+                form.addEventListener('submit', function () {
+                    saveTab(readActiveTab());
+                });
+            }
+        });
+    })();
+</script>
+<script
+    src="{{ asset('../modules/creditjet/views/js/creditjetForms.js') }}?v={{ creditjet_forms_js_version }}"></script>
 {% endblock %}

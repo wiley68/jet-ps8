@@ -7,20 +7,12 @@ namespace PrestaShop\Module\CreditJet\Controller;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Context;
 use Db;
 use DbQuery;
 
 class CreditJetConfigurationController extends FrameworkBundleAdminController
 {
-    private const CONFIGURATION_TABS = [
-        'creditjet-management',
-        'creditjet-functional',
-        'creditjet-visual',
-        'creditjet-interest-filters',
-    ];
-
     public function index(Request $request): Response
     {
         $textFormDataHandler = $this->get('prestashop.module.creditjet.creditjet_configuration_form_handler');
@@ -34,9 +26,7 @@ class CreditJetConfigurationController extends FrameworkBundleAdminController
             if (empty($errors)) {
                 $this->addFlash('success', 'Успешна актуализация');
 
-                return $this->redirectToRoute('credit_jet_configuration_form', [
-                    'active_tab' => $this->resolveActiveTab($request),
-                ]);
+                return $this->redirectToRoute('credit_jet_configuration_form');
             }
 
             $this->flashErrors($errors);
@@ -52,23 +42,20 @@ class CreditJetConfigurationController extends FrameworkBundleAdminController
             'link_to_create_schema_creditjet' => $link_to_create_schema_creditjet,
             'link_to_delete_schema_creditjet' => $link_to_delete_schema_creditjet,
             'creditjet_schemes' => $creditjet_schemes,
-            'active_tab' => $this->resolveActiveTab($request),
+            'active_tab' => 'creditjet-management',
+            'creditjet_forms_js_version' => $this->getAssetVersion('views/js/creditjetForms.js'),
         ]);
     }
 
-    private function resolveActiveTab(Request $httpRequest): string
+    private function getAssetVersion(string $relativePath): int
     {
-        if ($httpRequest->isMethod(Request::METHOD_POST)) {
-            $tab = (string) $httpRequest->request->get('creditjet_active_tab', 'creditjet-management');
-        } else {
-            $tab = (string) $httpRequest->query->get('active_tab', 'creditjet-management');
+        $path = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . $relativePath;
+
+        if (!file_exists($path)) {
+            return time();
         }
 
-        if (!in_array($tab, self::CONFIGURATION_TABS, true)) {
-            return 'creditjet-management';
-        }
-
-        return $tab;
+        return (int) filemtime($path);
     }
 
     public function getAllJetKopRows()
