@@ -15,6 +15,41 @@ final class JetButtonSettings
     public const DEFAULT_BTN_TEXT = 'Купи на изплащане с';
     public const DEFAULT_BTN_TEXT_CARD = 'На вноски с твоята кредитна карта';
 
+    public const DEFAULT_GAP = 0;
+    public const DEFAULT_BUTTON_SCHEME = 0;
+    public const DEFAULT_BTN_LOGO = 1;
+    public const DEFAULT_BTN_MAX_WIDTH = 570;
+    public const DEFAULT_BTN_ROUND = 16;
+    public const DEFAULT_BTN_FONT = 14;
+
+    /**
+     * Стандартни стойности за таб „Визуални“ (съвпадат с installConfigurationDefaults).
+     *
+     * @return array{
+     *     jet_gap: int,
+     *     jet_button_scheme: int,
+     *     jet_btn_text: string,
+     *     jet_btn_text_card: string,
+     *     jet_btn_logo: int,
+     *     jet_btn_max_width: int,
+     *     jet_btn_round: int,
+     *     jet_btn_font: int
+     * }
+     */
+    public static function getVisualDefaults(): array
+    {
+        return [
+            'jet_gap' => self::DEFAULT_GAP,
+            'jet_button_scheme' => self::DEFAULT_BUTTON_SCHEME,
+            'jet_btn_text' => self::DEFAULT_BTN_TEXT,
+            'jet_btn_text_card' => self::DEFAULT_BTN_TEXT_CARD,
+            'jet_btn_logo' => self::DEFAULT_BTN_LOGO,
+            'jet_btn_max_width' => self::DEFAULT_BTN_MAX_WIDTH,
+            'jet_btn_round' => self::DEFAULT_BTN_ROUND,
+            'jet_btn_font' => self::DEFAULT_BTN_FONT,
+        ];
+    }
+
     /**
      * @return array{
      *     jet_button_type: string,
@@ -101,6 +136,7 @@ final class JetButtonSettings
             'jet_wide_button_wrap_style' => $wrapStyle,
             'jet_button_scheme_styles_for_js' => json_encode($schemeStylesForJs, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
             'jet_button_scheme_labels_json' => json_encode($schemeLabels, JSON_UNESCAPED_UNICODE),
+            'jet_visual_defaults_json' => json_encode(self::getVisualDefaults(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
         ];
     }
 
@@ -135,11 +171,15 @@ final class JetButtonSettings
 
     public static function normalizeBtnLogo(mixed $value): int
     {
-        if ($value === null || $value === '' || $value === false) {
+        if ($value === false || $value === 0 || $value === '0') {
+            return 0;
+        }
+
+        if ($value === null || $value === '') {
             return 1;
         }
 
-        return (int) $value ? 1 : 0;
+        return filter_var($value, FILTER_VALIDATE_BOOLEAN) ? 1 : 0;
     }
 
     public static function normalizeBtnMaxWidth(mixed $value): int

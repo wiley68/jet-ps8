@@ -72,7 +72,9 @@ final class CreditJetConfigurationDataConfiguration implements DataConfiguration
             $this->configuration->get(static::JET_CREDIT_BTN_TEXT_CARD),
             JetButtonSettings::DEFAULT_BTN_TEXT_CARD
         );
-        $return['jet_btn_logo'] = JetButtonSettings::normalizeBtnLogo($this->configuration->get(static::JET_CREDIT_BTN_LOGO));
+        $return['jet_btn_logo'] = JetButtonSettings::normalizeBtnLogo(
+            $this->configuration->get(static::JET_CREDIT_BTN_LOGO)
+        );
         $return['jet_btn_max_width'] = JetButtonSettings::normalizeBtnMaxWidth($this->configuration->get(static::JET_CREDIT_BTN_MAX_WIDTH));
         $return['jet_btn_round'] = JetButtonSettings::normalizeBtnRound($this->configuration->get(static::JET_CREDIT_BTN_ROUND));
         $return['jet_btn_font'] = JetButtonSettings::normalizeBtnFont($this->configuration->get(static::JET_CREDIT_BTN_FONT));

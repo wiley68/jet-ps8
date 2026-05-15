@@ -13,9 +13,6 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    --jet-wide-radius: 16px;
-    --jet-wide-max-width: 570px;
-    --jet-wide-font-size: 14px;
     --jet-wide-bg: #ffffff;
     --jet-wide-hover: #f0fdf4;
     --jet-wide-border: #166534;

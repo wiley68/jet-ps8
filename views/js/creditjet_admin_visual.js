@@ -1,6 +1,19 @@
 (function () {
     "use strict";
 
+    var FALLBACK_VISUAL_DEFAULTS = {
+        jet_gap: 0,
+        jet_button_scheme: 0,
+        jet_btn_text: "Купи на изплащане с",
+        jet_btn_text_card: "На вноски с твоята кредитна карта",
+        jet_btn_logo: 1,
+        jet_btn_max_width: 570,
+        jet_btn_round: 16,
+        jet_btn_font: 14,
+    };
+
+    var creditjetVisualPreviewApi = null;
+
     function ready(fn) {
         if (document.readyState !== "loading") {
             fn();
@@ -9,55 +22,345 @@
         }
     }
 
+    function debounce(fn, delayMs) {
+        var timer = null;
+        return function () {
+            var context = this;
+            var args = arguments;
+            if (timer !== null) {
+                clearTimeout(timer);
+            }
+            timer = setTimeout(function () {
+                timer = null;
+                fn.apply(context, args);
+            }, delayMs);
+        };
+    }
+
+    function readJsonHiddenInput(elementId, fallback) {
+        var el = document.getElementById(elementId);
+        if (!el) {
+            return fallback;
+        }
+        var raw = el.value || el.textContent || "";
+        if (!raw) {
+            return fallback;
+        }
+        try {
+            return JSON.parse(raw);
+        } catch (e) {
+            return fallback;
+        }
+    }
+
+    function getResolvedVisualDefaults() {
+        var parsed = readJsonHiddenInput("creditjet-visual-defaults-data", {});
+        if (!parsed || typeof parsed !== "object") {
+            parsed = {};
+        }
+        return Object.assign({}, FALLBACK_VISUAL_DEFAULTS, parsed);
+    }
+
+    function fireFieldEvents(el) {
+        if (!el) {
+            return;
+        }
+        try {
+            el.dispatchEvent(new Event("input", { bubbles: true }));
+            el.dispatchEvent(new Event("change", { bubbles: true }));
+        } catch (e) {
+            // ignore
+        }
+        if (window.jQuery) {
+            window.jQuery(el).trigger("change");
+        }
+    }
+
+    function findVisualField(fieldName, elementId) {
+        if (elementId) {
+            var byId = document.getElementById(elementId);
+            if (byId) {
+                return byId;
+            }
+        }
+        var form = document.getElementById("creditjet-settings-form");
+        var scopes = [];
+        if (form) {
+            scopes.push(form);
+        }
+        var visualRoot = document.getElementById("creditjet-visual-settings");
+        if (visualRoot) {
+            scopes.push(visualRoot);
+        }
+        scopes.push(document);
+        for (var i = 0; i < scopes.length; i++) {
+            var found = scopes[i].querySelector(
+                'input[name$="[' +
+                    fieldName +
+                    '"], select[name$="[' +
+                    fieldName +
+                    '"], textarea[name$="[' +
+                    fieldName +
+                    '"]',
+            );
+            if (found) {
+                return found;
+            }
+        }
+        return null;
+    }
+
+    function findInputByExactName(fullName) {
+        if (!fullName) {
+            return null;
+        }
+        var form = document.getElementById("creditjet-settings-form");
+        var scopes = form ? [form] : [document];
+        for (var s = 0; s < scopes.length; s++) {
+            var nodes = scopes[s].querySelectorAll("input, textarea, select");
+            for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].getAttribute("name") === fullName) {
+                    return nodes[i];
+                }
+            }
+        }
+        return null;
+    }
+
+    function findConfiguredTextField(which) {
+        var visualRoot = document.getElementById("creditjet-visual-settings");
+        if (!visualRoot) {
+            return null;
+        }
+
+        var fieldId = "";
+        var fieldName = "";
+        if (which === "main") {
+            fieldId = visualRoot.getAttribute("data-jet-btn-text-id") || "";
+            fieldName = visualRoot.getAttribute("data-jet-btn-text-name") || "";
+        } else if (which === "card") {
+            fieldId =
+                visualRoot.getAttribute("data-jet-btn-text-card-id") || "";
+            fieldName =
+                visualRoot.getAttribute("data-jet-btn-text-card-name") || "";
+        }
+
+        var el = null;
+        if (fieldId) {
+            el = document.getElementById(fieldId);
+        }
+        if (!el && fieldName) {
+            el = findInputByExactName(fieldName);
+        }
+        if (!el) {
+            el = findVisualField(
+                which === "card" ? "jet_btn_text_card" : "jet_btn_text",
+                null,
+            );
+        }
+
+        return el;
+    }
+
+    function setTextFieldValue(which, value) {
+        var el = findConfiguredTextField(which);
+        if (el) {
+            el.value = value;
+            fireFieldEvents(el);
+            if (window.jQuery) {
+                window.jQuery(el).val(value).trigger("input change");
+            }
+        }
+
+        var previewId =
+            which === "card"
+                ? "creditjet_btn_text_card_preview"
+                : "creditjet_btn_text_preview";
+        var previewEl = document.getElementById(previewId);
+        if (previewEl) {
+            previewEl.textContent = value;
+        }
+    }
+
+    function resetVisualToDefaultsStandalone() {
+        var d = getResolvedVisualDefaults();
+        var root = document.getElementById("creditjet-visual-settings");
+
+        var gapEl = findVisualField("jet_gap", null);
+        if (gapEl) {
+            gapEl.value = d.jet_gap;
+            fireFieldEvents(gapEl);
+        }
+
+        var schemeIdx = parseInt(d.jet_button_scheme, 10) || 0;
+        if (root) {
+            var schemeRadio = root.querySelector(
+                '.jet_scheme_radio[value="' + schemeIdx + '"]',
+            );
+            if (schemeRadio) {
+                schemeRadio.checked = true;
+                fireFieldEvents(schemeRadio);
+            }
+        }
+
+        setTextFieldValue("main", d.jet_btn_text);
+        setTextFieldValue("card", d.jet_btn_text_card);
+
+        var logoVal = String(d.jet_btn_logo === undefined ? 1 : d.jet_btn_logo);
+        var logoScope =
+            document.getElementById("creditjet-settings-form") || document;
+        var logoInput = logoScope.querySelector(
+            'input[name*="[jet_btn_logo]"][value="' + logoVal + '"]',
+        );
+        if (logoInput) {
+            logoInput.checked = true;
+            fireFieldEvents(logoInput);
+        }
+
+        var maxWidthEl = findVisualField(
+            "jet_btn_max_width",
+            "creditjet_btn_max_width",
+        );
+        var maxWidthRange = document.getElementById(
+            "creditjet_btn_max_width_range",
+        );
+        if (maxWidthEl) {
+            maxWidthEl.value = d.jet_btn_max_width;
+            fireFieldEvents(maxWidthEl);
+        }
+        if (maxWidthRange) {
+            maxWidthRange.value = d.jet_btn_max_width;
+        }
+
+        var roundEl = findVisualField("jet_btn_round", "creditjet_btn_round");
+        var roundRange = document.getElementById("creditjet_btn_round_range");
+        if (roundEl) {
+            roundEl.value = d.jet_btn_round;
+            fireFieldEvents(roundEl);
+        }
+        if (roundRange) {
+            roundRange.value = d.jet_btn_round;
+        }
+
+        var fontEl = findVisualField("jet_btn_font", "creditjet_btn_font");
+        var fontRange = document.getElementById("creditjet_btn_font_range");
+        if (fontEl) {
+            fontEl.value = d.jet_btn_font;
+            fireFieldEvents(fontEl);
+        }
+        if (fontRange) {
+            fontRange.value = d.jet_btn_font;
+        }
+
+        if (creditjetVisualPreviewApi) {
+            creditjetVisualPreviewApi.applyScheme(schemeIdx);
+            creditjetVisualPreviewApi.syncButtonType();
+            creditjetVisualPreviewApi.syncTexts();
+            creditjetVisualPreviewApi.syncLogo();
+        }
+    }
+
+    window.creditjetResetVisualDefaults = function (event) {
+        if (event && typeof event.preventDefault === "function") {
+            event.preventDefault();
+        }
+        if (event && typeof event.stopPropagation === "function") {
+            event.stopPropagation();
+        }
+        resetVisualToDefaultsStandalone();
+    };
+
     ready(function () {
         var root = document.getElementById("creditjet-visual-settings");
         if (!root) {
             return;
         }
 
-        var schemeStyles = {};
-        var schemeLabels = [];
-        try {
-            schemeStyles = JSON.parse(
-                root.getAttribute("data-scheme-styles") || "{}",
-            );
-            schemeLabels = JSON.parse(
-                root.getAttribute("data-scheme-labels") || "[]",
-            );
-        } catch (e) {
-            schemeStyles = {};
+        var numberInputDebounceMs = 400;
+
+        var schemeStyles = readJsonHiddenInput(
+            "creditjet-scheme-styles-data",
+            {},
+        );
+        var schemeLabels = readJsonHiddenInput(
+            "creditjet-scheme-labels-data",
+            [],
+        );
+        if (!schemeLabels || typeof schemeLabels.length === "undefined") {
             schemeLabels = [];
         }
 
         var initialScheme =
             parseInt(root.getAttribute("data-initial-scheme") || "0", 10) || 0;
 
-        var buttonTypeSelect = document.getElementById(
-            root.getAttribute("data-button-type-id") || "",
-        );
+        var visualDefaults = getResolvedVisualDefaults();
+
+        var settingsForm =
+            document.getElementById("creditjet-settings-form") || root;
+
         var previewStandard = document.getElementById(
             "creditjet-preview-standard",
         );
         var previewWide = document.getElementById("creditjet-preview-wide");
         var wideOnly = document.getElementById("creditjet-wide-only-settings");
 
-        function syncButtonTypePreview() {
-            var isWide = buttonTypeSelect && buttonTypeSelect.value === "wide";
-            if (previewStandard) {
-                previewStandard.hidden = isWide;
+        function getButtonTypeSelect() {
+            var configuredId = root.getAttribute("data-button-type-id") || "";
+            if (configuredId) {
+                var byId = document.getElementById(configuredId);
+                if (byId) {
+                    return byId;
+                }
             }
-            if (previewWide) {
-                previewWide.hidden = !isWide;
-            }
-            if (wideOnly) {
-                wideOnly.hidden = !isWide;
-            }
+
+            return root.querySelector('select[name*="[jet_button_type]"]');
         }
 
-        if (buttonTypeSelect) {
-            buttonTypeSelect.addEventListener("change", syncButtonTypePreview);
-            syncButtonTypePreview();
+        function setBlockVisible(element, visible) {
+            if (!element) {
+                return;
+            }
+            element.hidden = !visible;
+            element.style.display = visible ? "" : "none";
         }
+
+        function syncButtonTypePreview() {
+            var buttonTypeSelect = getButtonTypeSelect();
+            var isWide = buttonTypeSelect && buttonTypeSelect.value === "wide";
+            setBlockVisible(previewStandard, !isWide);
+            setBlockVisible(previewWide, isWide);
+            setBlockVisible(wideOnly, isWide);
+        }
+
+        root.addEventListener("change", function (event) {
+            var target = event.target;
+            if (
+                target &&
+                target.matches &&
+                target.matches('select[name*="[jet_button_type]"]')
+            ) {
+                syncButtonTypePreview();
+            }
+        });
+
+        if (window.jQuery) {
+            window
+                .jQuery(root)
+                .on(
+                    "change",
+                    'select[name*="[jet_button_type]"]',
+                    syncButtonTypePreview,
+                );
+            window
+                .jQuery(root)
+                .on(
+                    "select2:select",
+                    'select[name*="[jet_button_type]"]',
+                    syncButtonTypePreview,
+                );
+        }
+
+        syncButtonTypePreview();
 
         function clampMaxWidth(v) {
             v = parseInt(v, 10);
@@ -101,26 +404,50 @@
             return v;
         }
 
-        function val(id) {
-            var el = document.getElementById(id);
+        function findFormInput(fieldName) {
+            if (fieldName === "jet_btn_text") {
+                return findConfiguredTextField("main");
+            }
+            if (fieldName === "jet_btn_text_card") {
+                return findConfiguredTextField("card");
+            }
+            var idMap = {
+                jet_btn_max_width: "creditjet_btn_max_width",
+                jet_btn_round: "creditjet_btn_round",
+                jet_btn_font: "creditjet_btn_font",
+            };
+            return findVisualField(fieldName, idMap[fieldName] || null);
+        }
+
+        function findFormNumberInput(fieldName) {
+            return findFormInput(fieldName);
+        }
+
+        function valField(fieldName) {
+            var el = findFormNumberInput(fieldName);
             return el ? el.value : "";
+        }
+
+        function buildPreviewStyle(schemeStyle) {
+            return (
+                (schemeStyle || "") +
+                "--jet-wide-max-width:" +
+                clampMaxWidth(valField("jet_btn_max_width")) +
+                "px;" +
+                "--jet-wide-radius:" +
+                clampRound(valField("jet_btn_round")) +
+                "px;" +
+                "--jet-wide-font-size:" +
+                clampFont(valField("jet_btn_font")) +
+                "px;"
+            );
         }
 
         function applyJetSchemePreview(idx) {
             var k = String(idx);
-            var s = schemeStyles[k] || schemeStyles[idx] || "";
-            s +=
-                "--jet-wide-max-width:" +
-                clampMaxWidth(val("creditjet_btn_max_width")) +
-                "px;";
-            s +=
-                "--jet-wide-radius:" +
-                clampRound(val("creditjet_btn_round")) +
-                "px;";
-            s +=
-                "--jet-wide-font-size:" +
-                clampFont(val("creditjet_btn_font")) +
-                "px;";
+            var fullStyle = buildPreviewStyle(
+                schemeStyles[k] || schemeStyles[idx] || "",
+            );
 
             var wrapMain = document.getElementById(
                 "creditjet-wide-preview-wrap",
@@ -128,11 +455,12 @@
             var wrapCard = document.getElementById(
                 "creditjet-wide-preview-wrap-card",
             );
+
             if (wrapMain) {
-                wrapMain.setAttribute("style", s);
+                wrapMain.setAttribute("style", fullStyle);
             }
             if (wrapCard) {
-                wrapCard.setAttribute("style", s);
+                wrapCard.setAttribute("style", fullStyle);
             }
 
             var summary = document.getElementById(
@@ -154,10 +482,28 @@
             });
         });
 
+        function applyInitialWrapStyleFromData() {
+            var initialWrapStyle =
+                root.getAttribute("data-initial-wrap-style") || "";
+            if (!initialWrapStyle) {
+                return;
+            }
+            [
+                "creditjet-wide-preview-wrap",
+                "creditjet-wide-preview-wrap-card",
+            ].forEach(function (id) {
+                var el = document.getElementById(id);
+                if (el) {
+                    el.setAttribute("style", initialWrapStyle);
+                }
+            });
+        }
+
+        applyInitialWrapStyleFromData();
         applyJetSchemePreview(initialScheme);
 
-        function bindRangeSync(numberId, rangeId, clampFn) {
-            var num = document.getElementById(numberId);
+        function bindRangeSync(fieldName, rangeId, clampFn) {
+            var num = findFormNumberInput(fieldName);
             var range = document.getElementById(rangeId);
             if (!num || !range) {
                 return;
@@ -174,8 +520,13 @@
                 num.value = t;
                 applyJetSchemePreview(getSelectedScheme());
             }
-            num.addEventListener("input", syncFromNumber);
+            var syncFromNumberDebounced = debounce(
+                syncFromNumber,
+                numberInputDebounceMs,
+            );
+            num.addEventListener("input", syncFromNumberDebounced);
             num.addEventListener("change", syncFromNumber);
+            num.addEventListener("blur", syncFromNumber);
             range.addEventListener("input", syncFromRange);
             range.addEventListener("change", syncFromRange);
         }
@@ -186,27 +537,22 @@
         }
 
         bindRangeSync(
-            "creditjet_btn_max_width",
+            "jet_btn_max_width",
             "creditjet_btn_max_width_range",
             clampMaxWidth,
         );
-        bindRangeSync(
-            "creditjet_btn_round",
-            "creditjet_btn_round_range",
-            clampRound,
-        );
-        bindRangeSync(
-            "creditjet_btn_font",
-            "creditjet_btn_font_range",
-            clampFont,
-        );
+        bindRangeSync("jet_btn_round", "creditjet_btn_round_range", clampRound);
+        bindRangeSync("jet_btn_font", "creditjet_btn_font_range", clampFont);
 
-        var defaultJetBtnText = "Купи на изплащане с";
-        var defaultJetBtnTextCard = "На вноски с твоята кредитна карта";
+        var defaultJetBtnText =
+            visualDefaults.jet_btn_text || "Купи на изплащане с";
+        var defaultJetBtnTextCard =
+            visualDefaults.jet_btn_text_card ||
+            "На вноски с твоята кредитна карта";
 
         function syncJetBtnTextPreview() {
             var el = document.getElementById("creditjet_btn_text_preview");
-            var input = document.getElementById("creditjet_btn_text");
+            var input = findFormInput("jet_btn_text");
             if (!el || !input) {
                 return;
             }
@@ -216,7 +562,7 @@
 
         function syncJetBtnTextCardPreview() {
             var el = document.getElementById("creditjet_btn_text_card_preview");
-            var inputCard = document.getElementById("creditjet_btn_text_card");
+            var inputCard = findFormInput("jet_btn_text_card");
             if (!el || !inputCard) {
                 return;
             }
@@ -224,8 +570,8 @@
             el.textContent = t === "" ? defaultJetBtnTextCard : t;
         }
 
-        var btnText = document.getElementById("creditjet_btn_text");
-        var btnTextCard = document.getElementById("creditjet_btn_text_card");
+        var btnText = findFormInput("jet_btn_text");
+        var btnTextCard = findFormInput("jet_btn_text_card");
         if (btnText) {
             btnText.addEventListener("input", syncJetBtnTextPreview);
             btnText.addEventListener("change", syncJetBtnTextPreview);
@@ -237,20 +583,54 @@
         syncJetBtnTextPreview();
         syncJetBtnTextCardPreview();
 
-        var btnLogo =
-            document.getElementById("creditjet_btn_logo") ||
-            root.querySelector('input[name*="[jet_btn_logo]"]');
+        function isJetBtnLogoEnabled() {
+            var checked = root.querySelector(
+                'input[name*="[jet_btn_logo]"]:checked',
+            );
+            if (!checked) {
+                return true;
+            }
+
+            var value = String(checked.value).toLowerCase();
+            return value === "1" || value === "true" || value === "on";
+        }
+
         function syncJetBtnLogoPreview() {
-            var on = btnLogo && btnLogo.checked;
+            var on = isJetBtnLogoEnabled();
             root.querySelectorAll(".creditjet-wide-preview-logo").forEach(
                 function (img) {
                     img.hidden = !on;
                 },
             );
         }
-        if (btnLogo) {
-            btnLogo.addEventListener("change", syncJetBtnLogoPreview);
-            syncJetBtnLogoPreview();
+
+        root.querySelectorAll('input[name*="[jet_btn_logo]"]').forEach(
+            function (input) {
+                input.addEventListener("change", syncJetBtnLogoPreview);
+            },
+        );
+        syncJetBtnLogoPreview();
+
+        creditjetVisualPreviewApi = {
+            applyScheme: function (schemeIdx) {
+                applyJetSchemePreview(schemeIdx);
+            },
+            syncButtonType: syncButtonTypePreview,
+            syncTexts: function () {
+                syncJetBtnTextPreview();
+                syncJetBtnTextCardPreview();
+            },
+            syncLogo: syncJetBtnLogoPreview,
+        };
+
+        var resetBtn = document.getElementById(
+            "creditjet-reset-visual-defaults",
+        );
+        if (resetBtn) {
+            resetBtn.addEventListener(
+                "click",
+                window.creditjetResetVisualDefaults,
+            );
         }
     });
 })();

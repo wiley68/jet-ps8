@@ -144,7 +144,10 @@ class CreditJetConfigurationType extends TranslatorAwareType
             ->add('jet_btn_logo', SwitchType::class, [
                 'label' => 'Покажи лого в бутона',
                 'help' => 'Определя дали да се показва логото на ПБ Лични Финанси в персонализирания бутон.',
-                'attr' => ['id' => 'creditjet_btn_logo'],
+                'choices' => [
+                    'No' => 0,
+                    'Yes' => 1,
+                ],
             ])
             ->add('jet_btn_max_width', NumberType::class, [
                 'label' => 'Максимална ширина на бутона',
