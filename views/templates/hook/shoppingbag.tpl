@@ -9,17 +9,6 @@
 
     <div id="jet_alert_overlay" class="jet_alert_overlay"></div>
     <div id="jet_alert_box"></div>
-    {if $zaiavka1jet_text != ''}
-        <table class="jet_table">
-            <tr>
-                <td class="jet_button_table">
-                    <div class="jet_button_div_txt">
-                        {$zaiavka1jet_text}
-                    </div>
-                </td>
-            </tr>
-        </table>
-    {/if}
     <table class="jet_table_img">
         <tr>
             <td class="jet_button_table">

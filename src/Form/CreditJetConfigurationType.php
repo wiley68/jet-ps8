@@ -110,11 +110,6 @@ class CreditJetConfigurationType extends TranslatorAwareType
                 'required' => false,
                 'empty_data' => 0,
             ])
-            ->add('jet_z1', TextType::class, [
-                'label' => 'Заглавие на блока',
-                'help' => 'Удебеления текст над бутона. Ако оставите празно, няма да се визуализира текста',
-                'required' => false,
-            ])
             ->add(
                 'jet_vnoska',
                 SwitchType::class,

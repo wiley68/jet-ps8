@@ -89,7 +89,6 @@ class CreditJet extends PaymentModule
             !Configuration::deleteByName('JET_PURCENT_CARD') ||
             !Configuration::deleteByName('JET_COUNT') ||
             !Configuration::deleteByName('JET_GAP') ||
-            !Configuration::deleteByName('JET_Z1') ||
             !Configuration::deleteByName('JET_VNOSKA') ||
             !Configuration::deleteByName('JET_MINPRICE') ||
             !Configuration::deleteByName('JET_EUR') ||
@@ -261,7 +260,6 @@ class CreditJet extends PaymentModule
         }
 
         $jet_gap = (int)Configuration::get("JET_GAP");
-        $zaiavka1jet_text = Configuration::get("JET_Z1");
         $jet_vnoski_default = (int)Configuration::get("JET_VNOSKI_DEFAULT");
         if ($jet_price < $jet_min_250) {
             $jet_vnoski = '9';
@@ -308,7 +306,6 @@ class CreditJet extends PaymentModule
             'jet_gap' => $jet_gap,
             'jet_price' => number_format($jet_price_before, 2, '.', ''),
             'jet_card_in' => $jet_card_in,
-            'zaiavka1jet_text' => $zaiavka1jet_text,
             'is_vnoska' => $is_vnoska,
             'jet_sign_second' => $jet_sign_second,
             'jet_sign' => $jet_sign,
@@ -351,7 +348,6 @@ class CreditJet extends PaymentModule
             return null;
         }
 
-        $zaiavka1jet_text = Configuration::get("JET_Z1");
         $jet_card_in = (int)Configuration::get("JET_CARD_IN");
         $is_vnoska = (int)Configuration::get("JET_VNOSKA");
 
@@ -480,7 +476,6 @@ class CreditJet extends PaymentModule
             'jet_products_pr' => $jet_products_pr,
             'jet_products_ct' => $jet_products_ct,
             'jet_products_vr' => $jet_products_vr,
-            'zaiavka1jet_text' => $zaiavka1jet_text,
             'is_vnoska' => $is_vnoska,
             'jet_sign_second' => $jet_sign_second,
             'jet_sign' => $jet_sign,

@@ -22,7 +22,6 @@ final class CreditJetConfigurationDataConfiguration implements DataConfiguration
     public const JET_PURCENT_CARD = 'JET_PURCENT_CARD';
     public const JET_COUNT = 'JET_COUNT';
     public const JET_GAP = 'JET_GAP';
-    public const JET_Z1 = 'JET_Z1';
     public const JET_VNOSKA = 'JET_VNOSKA';
     public const JET_MINPRICE = 'JET_MINPRICE';
     public const JET_EUR = 'JET_EUR';
@@ -51,7 +50,6 @@ final class CreditJetConfigurationDataConfiguration implements DataConfiguration
         $return['jet_purcent_card'] = $this->configuration->get(static::JET_PURCENT_CARD);
         $return['jet_count'] = $this->configuration->get(static::JET_COUNT);
         $return['jet_gap'] = $this->configuration->get(static::JET_GAP);
-        $return['jet_z1'] = $this->configuration->get(static::JET_Z1);
         $return['jet_vnoska'] = $this->configuration->get(static::JET_VNOSKA);
         $return['jet_minprice'] = $this->configuration->get(static::JET_MINPRICE);
         $return['jet_eur'] = $this->configuration->get(static::JET_EUR);
@@ -74,7 +72,6 @@ final class CreditJetConfigurationDataConfiguration implements DataConfiguration
             $this->configuration->set(static::JET_PURCENT_CARD, $configuration['jet_purcent_card']);
             $this->configuration->set(static::JET_COUNT, $configuration['jet_count'] ? $configuration['jet_count'] : 1);
             $this->configuration->set(static::JET_GAP, $configuration['jet_gap']);
-            $this->configuration->set(static::JET_Z1, $configuration['jet_z1']);
             $this->configuration->set(static::JET_VNOSKA, $configuration['jet_vnoska']);
             $this->configuration->set(static::JET_MINPRICE, $configuration['jet_minprice']);
             $this->configuration->set(static::JET_EUR, $configuration['jet_eur']);
