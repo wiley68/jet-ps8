@@ -74,7 +74,7 @@
 
                     <div class="tab-pane fade{{ active_tab == 'creditjet-visual' ? ' show active' : '' }} pt-3"
                         id="creditjet-visual" role="tabpanel" aria-labelledby="creditjet-visual-tab">
-                        {{ form_row(creditJetConfigurationForm.jet_gap) }}
+                        {% include '@Modules/creditjet/views/templates/admin/_visual_button_settings.html.twig' %}
                     </div>
 
                     {{ form_end(creditJetConfigurationForm) }}
@@ -224,6 +224,9 @@
 {% block stylesheets %}
 {{ parent() }}
 <link rel="stylesheet" href="{{ asset('../modules/creditjet/views/css/creditjet_admin_config.css') }}" type="text/css">
+<link rel="stylesheet"
+    href="{{ asset('../modules/creditjet/views/css/creditjet_admin_visual.css') }}?v={{ creditjet_admin_visual_css_version }}"
+    type="text/css">
 {% endblock %}
 
 {% block javascripts %}
@@ -345,4 +348,6 @@
 </script>
 <script
     src="{{ asset('../modules/creditjet/views/js/creditjetForms.js') }}?v={{ creditjet_forms_js_version }}"></script>
+<script
+    src="{{ asset('../modules/creditjet/views/js/creditjet_admin_visual.js') }}?v={{ creditjet_admin_visual_js_version }}"></script>
 {% endblock %}

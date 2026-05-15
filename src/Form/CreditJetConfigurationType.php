@@ -110,6 +110,84 @@ class CreditJetConfigurationType extends TranslatorAwareType
                 'required' => false,
                 'empty_data' => 0,
             ])
+            ->add('jet_button_type', ChoiceType::class, [
+                'label' => 'Вид на бутона',
+                'help' => 'От тук можете да си изберете вида на бутоните които ще се показват в продуктовата и в страницата количка.',
+                'required' => true,
+                'choices' => [
+                    'Стандартен бутон' => 'standard',
+                    'Персонализиран бутон' => 'wide',
+                ],
+                'empty_data' => 'standard',
+                'attr' => ['id' => 'creditjet_button_type'],
+            ])
+            ->add('jet_button_scheme', NumberType::class, [
+                'label' => false,
+                'required' => false,
+                'empty_data' => 0,
+                'attr' => ['id' => 'creditjet_button_scheme', 'class' => 'creditjet-scheme-value'],
+            ])
+            ->add('jet_btn_text', TextType::class, [
+                'label' => 'Текст на основния бутон',
+                'help' => 'Текстът в първия ред на персонализирания бутон.',
+                'required' => false,
+                'empty_data' => 'Купи на изплащане с',
+                'attr' => ['maxlength' => 160, 'id' => 'creditjet_btn_text'],
+            ])
+            ->add('jet_btn_text_card', TextType::class, [
+                'label' => 'Текст на картовия бутон',
+                'help' => 'Текстът в първия ред на бутона за кредитна карта.',
+                'required' => false,
+                'empty_data' => 'На вноски с твоята кредитна карта',
+                'attr' => ['maxlength' => 160, 'id' => 'creditjet_btn_text_card'],
+            ])
+            ->add('jet_btn_logo', SwitchType::class, [
+                'label' => 'Покажи лого в бутона',
+                'help' => 'Определя дали да се показва логото на ПБ Лични Финанси в персонализирания бутон.',
+                'attr' => ['id' => 'creditjet_btn_logo'],
+            ])
+            ->add('jet_btn_max_width', NumberType::class, [
+                'label' => 'Максимална ширина на бутона',
+                'help' => 'Ширина в px. Може да зададете стойност ръчно или с плъзгача (30–1200).',
+                'required' => false,
+                'empty_data' => 570,
+                'attr' => [
+                    'min' => 30,
+                    'max' => 1200,
+                    'step' => 1,
+                    'id' => 'creditjet_btn_max_width',
+                    'class' => 'creditjet-number-narrow',
+                    'inputmode' => 'numeric',
+                ],
+            ])
+            ->add('jet_btn_round', NumberType::class, [
+                'label' => 'Радиус на закръгление',
+                'help' => 'Радиус в px. 0 означава бутони без закръгление. Стойност ръчно или плъзгач (0–25).',
+                'required' => false,
+                'empty_data' => 16,
+                'attr' => [
+                    'min' => 0,
+                    'max' => 25,
+                    'step' => 1,
+                    'id' => 'creditjet_btn_round',
+                    'class' => 'creditjet-number-narrow',
+                    'inputmode' => 'numeric',
+                ],
+            ])
+            ->add('jet_btn_font', NumberType::class, [
+                'label' => 'Размер на шрифт в бутона',
+                'help' => 'Размер в px за текстовете в персонализирания бутон (6–36). Стойност ръчно или плъзгач.',
+                'required' => false,
+                'empty_data' => 14,
+                'attr' => [
+                    'min' => 6,
+                    'max' => 36,
+                    'step' => 1,
+                    'id' => 'creditjet_btn_font',
+                    'class' => 'creditjet-number-narrow',
+                    'inputmode' => 'numeric',
+                ],
+            ])
             ->add(
                 'jet_vnoska',
                 SwitchType::class,

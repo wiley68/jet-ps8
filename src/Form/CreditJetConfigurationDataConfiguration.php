@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PrestaShop\Module\CreditJet\Form;
 
+use PrestaShop\Module\CreditJet\Util\JetButtonSettings;
 use PrestaShop\PrestaShop\Core\Configuration\DataConfigurationInterface;
 use PrestaShop\PrestaShop\Core\ConfigurationInterface;
 
@@ -25,6 +26,14 @@ final class CreditJetConfigurationDataConfiguration implements DataConfiguration
     public const JET_VNOSKA = 'JET_VNOSKA';
     public const JET_MINPRICE = 'JET_MINPRICE';
     public const JET_EUR = 'JET_EUR';
+    public const JET_CREDIT_BUTTON_TYPE = 'JET_CREDIT_BUTTON_TYPE';
+    public const JET_CREDIT_BUTTON_SCHEME = 'JET_CREDIT_BUTTON_SCHEME';
+    public const JET_CREDIT_BTN_TEXT = 'JET_CREDIT_BTN_TEXT';
+    public const JET_CREDIT_BTN_TEXT_CARD = 'JET_CREDIT_BTN_TEXT_CARD';
+    public const JET_CREDIT_BTN_LOGO = 'JET_CREDIT_BTN_LOGO';
+    public const JET_CREDIT_BTN_MAX_WIDTH = 'JET_CREDIT_BTN_MAX_WIDTH';
+    public const JET_CREDIT_BTN_ROUND = 'JET_CREDIT_BTN_ROUND';
+    public const JET_CREDIT_BTN_FONT = 'JET_CREDIT_BTN_FONT';
 
     /**
      * @var ConfigurationInterface
@@ -53,6 +62,20 @@ final class CreditJetConfigurationDataConfiguration implements DataConfiguration
         $return['jet_vnoska'] = $this->configuration->get(static::JET_VNOSKA);
         $return['jet_minprice'] = $this->configuration->get(static::JET_MINPRICE);
         $return['jet_eur'] = $this->configuration->get(static::JET_EUR);
+        $return['jet_button_type'] = JetButtonSettings::normalizeButtonType($this->configuration->get(static::JET_CREDIT_BUTTON_TYPE));
+        $return['jet_button_scheme'] = JetButtonSettings::normalizeScheme($this->configuration->get(static::JET_CREDIT_BUTTON_SCHEME));
+        $return['jet_btn_text'] = JetButtonSettings::normalizeBtnText(
+            $this->configuration->get(static::JET_CREDIT_BTN_TEXT),
+            JetButtonSettings::DEFAULT_BTN_TEXT
+        );
+        $return['jet_btn_text_card'] = JetButtonSettings::normalizeBtnText(
+            $this->configuration->get(static::JET_CREDIT_BTN_TEXT_CARD),
+            JetButtonSettings::DEFAULT_BTN_TEXT_CARD
+        );
+        $return['jet_btn_logo'] = JetButtonSettings::normalizeBtnLogo($this->configuration->get(static::JET_CREDIT_BTN_LOGO));
+        $return['jet_btn_max_width'] = JetButtonSettings::normalizeBtnMaxWidth($this->configuration->get(static::JET_CREDIT_BTN_MAX_WIDTH));
+        $return['jet_btn_round'] = JetButtonSettings::normalizeBtnRound($this->configuration->get(static::JET_CREDIT_BTN_ROUND));
+        $return['jet_btn_font'] = JetButtonSettings::normalizeBtnFont($this->configuration->get(static::JET_CREDIT_BTN_FONT));
 
         return $return;
     }
@@ -62,6 +85,8 @@ final class CreditJetConfigurationDataConfiguration implements DataConfiguration
         $errors = [];
 
         if ($this->validateConfiguration($configuration)) {
+            $configuration = JetButtonSettings::normalizeForSave($configuration);
+
             $this->configuration->set(static::JET_STATUS_IN, $configuration['jet_status_in']);
             $this->configuration->set(static::JET_EMAIL, $configuration['jet_email']);
             $this->configuration->set(static::JET_ID, $configuration['jet_id']);
@@ -75,6 +100,14 @@ final class CreditJetConfigurationDataConfiguration implements DataConfiguration
             $this->configuration->set(static::JET_VNOSKA, $configuration['jet_vnoska']);
             $this->configuration->set(static::JET_MINPRICE, $configuration['jet_minprice']);
             $this->configuration->set(static::JET_EUR, $configuration['jet_eur']);
+            $this->configuration->set(static::JET_CREDIT_BUTTON_TYPE, $configuration['jet_button_type']);
+            $this->configuration->set(static::JET_CREDIT_BUTTON_SCHEME, $configuration['jet_button_scheme']);
+            $this->configuration->set(static::JET_CREDIT_BTN_TEXT, $configuration['jet_btn_text']);
+            $this->configuration->set(static::JET_CREDIT_BTN_TEXT_CARD, $configuration['jet_btn_text_card']);
+            $this->configuration->set(static::JET_CREDIT_BTN_LOGO, $configuration['jet_btn_logo']);
+            $this->configuration->set(static::JET_CREDIT_BTN_MAX_WIDTH, $configuration['jet_btn_max_width']);
+            $this->configuration->set(static::JET_CREDIT_BTN_ROUND, $configuration['jet_btn_round']);
+            $this->configuration->set(static::JET_CREDIT_BTN_FONT, $configuration['jet_btn_font']);
         }
 
         /* Errors are returned here. */

@@ -1,0 +1,140 @@
+<div id="creditjet-visual-settings" data-scheme-styles="{{ jet_button_scheme_styles_for_js|e('html_attr') }}"
+    data-scheme-labels="{{ jet_button_scheme_labels_json|e('html_attr') }}"
+    data-initial-scheme="{{ jet_button_scheme }}" data-button-type-id="creditjet_button_type">
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            {{ form_label(creditJetConfigurationForm.jet_gap) }}
+        </div>
+        <div class="col-md-9">
+            {{ form_widget(creditJetConfigurationForm.jet_gap) }}
+            {{ form_errors(creditJetConfigurationForm.jet_gap) }}
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            {{ form_label(creditJetConfigurationForm.jet_button_type) }}
+        </div>
+        <div class="col-md-9">
+            {{ form_widget(creditJetConfigurationForm.jet_button_type) }}
+            {{ form_errors(creditJetConfigurationForm.jet_button_type) }}
+
+            <div class="creditjet-button-preview">
+                <div id="creditjet-preview-standard" {% if jet_button_type=='wide' %} hidden{% endif %}>
+                    <div class="creditjet-preview-standard-inner">
+                        <table class="creditjet-preview-table" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td class="creditjet-preview-cell">
+                                        <img src="{{ jet_preview_jet }}" alt="Кредитен модул ПБ Лични Финанси"
+                                            title="Кредитен модул ПБ Лични Финанси" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="creditjet-preview-wide" {% if jet_button_type !='wide' %} hidden{% endif %}>
+                    <div class="creditjet-wide-dual-preview">
+                        <div id="creditjet-wide-preview-wrap" class="jet-wide-button-wrap">
+                            <div class="jet-wide-button" role="img" aria-label="Преглед — основен бутон">
+                                <div class="jet-wide-button-head">
+                                    <span id="creditjet_btn_text_preview">{{ jet_btn_text }}</span>
+                                    <img id="creditjet-wide-preview-logo-main" src="{{ jet_preview_jet_logo }}"
+                                        alt="ПБ Лични Финанси" class="jet-wide-button-logo creditjet-wide-preview-logo"
+                                        {% if jet_btn_logo !=1 %}hidden{% endif %} />
+                                </div>
+                                <div class="jet-wide-button-text">12 x 97.33 евро
+                                    <span class="jet-wide-button-text-second">(190.37 лв.)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="creditjet-wide-preview-wrap-card" class="jet-wide-button-wrap">
+                            <div class="jet-wide-button" role="img" aria-label="Преглед — картов бутон">
+                                <div class="jet-wide-button-head">
+                                    <span id="creditjet_btn_text_card_preview">{{ jet_btn_text_card }}</span>
+                                    <img id="creditjet-wide-preview-logo-card" src="{{ jet_preview_jet_logo }}"
+                                        alt="ПБ Лични Финанси" class="jet-wide-button-logo creditjet-wide-preview-logo"
+                                        {% if jet_btn_logo !=1 %}hidden{% endif %} />
+                                </div>
+                                <div class="jet-wide-button-text">12 x 97.33 евро
+                                    <span class="jet-wide-button-text-second">(190.37 лв.)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="creditjet-wide-only-settings" {% if jet_button_type !='wide' %} hidden{% endif %}>
+        <div class="form-group row">
+            <label class="col-md-3 form-control-label">Цветова схема на бутона</label>
+            <div class="col-md-9">
+                <div class="jet_scheme_grid_wrap">
+                    <div class="jet_scheme_grid">
+                        {% for sch in jet_button_schemes %}
+                        <label class="jet_scheme_card">
+                            <input type="radio" name="{{ creditJetConfigurationForm.jet_button_scheme.vars.full_name }}"
+                                value="{{ loop.index0 }}" class="jet_scheme_radio" data-scheme-idx="{{ loop.index0 }}"
+                                {% if jet_button_scheme==loop.index0 %}checked="checked" {% endif %} />
+                            <span class="jet_scheme_preview jet_scheme_preview--{{ loop.index0 }}">
+                                <span class="jet_scheme_preview_text">{{ sch.short }}</span>
+                            </span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+                <p id="creditjet_scheme_selected_summary" class="jet_scheme_summary">
+                    Избрана визуална схема: {{ jet_button_scheme_label }}
+                </p>
+            </div>
+        </div>
+        {% do creditJetConfigurationForm.jet_button_scheme.setRendered() %}
+
+        {{ form_row(creditJetConfigurationForm.jet_btn_text) }}
+        {{ form_row(creditJetConfigurationForm.jet_btn_text_card) }}
+        {{ form_row(creditJetConfigurationForm.jet_btn_logo) }}
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                {{ form_label(creditJetConfigurationForm.jet_btn_max_width) }}
+            </div>
+            <div class="col-md-9">
+                {{ form_widget(creditJetConfigurationForm.jet_btn_max_width) }}
+                <input type="range" id="creditjet_btn_max_width_range" class="form-control creditjet-range-sync"
+                    min="30" max="1200" step="1" value="{{ jet_btn_max_width }}" />
+                {{ form_help(creditJetConfigurationForm.jet_btn_max_width) }}
+                {{ form_errors(creditJetConfigurationForm.jet_btn_max_width) }}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                {{ form_label(creditJetConfigurationForm.jet_btn_round) }}
+            </div>
+            <div class="col-md-9">
+                {{ form_widget(creditJetConfigurationForm.jet_btn_round) }}
+                <input type="range" id="creditjet_btn_round_range" class="form-control creditjet-range-sync" min="0"
+                    max="25" step="1" value="{{ jet_btn_round }}" />
+                {{ form_help(creditJetConfigurationForm.jet_btn_round) }}
+                {{ form_errors(creditJetConfigurationForm.jet_btn_round) }}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                {{ form_label(creditJetConfigurationForm.jet_btn_font) }}
+            </div>
+            <div class="col-md-9">
+                {{ form_widget(creditJetConfigurationForm.jet_btn_font) }}
+                <input type="range" id="creditjet_btn_font_range" class="form-control creditjet-range-sync" min="6"
+                    max="36" step="1" value="{{ jet_btn_font }}" />
+                {{ form_help(creditJetConfigurationForm.jet_btn_font) }}
+                {{ form_errors(creditJetConfigurationForm.jet_btn_font) }}
+            </div>
+        </div>
+    </div>
+</div>

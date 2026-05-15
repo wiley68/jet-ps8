@@ -1,0 +1,264 @@
+#creditjet-visual-settings .creditjet-wide-dual-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+}
+
+#creditjet-visual-settings .creditjet-button-preview {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: #f9f9f9;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+}
+
+#creditjet-visual-settings .creditjet-preview-standard-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+#creditjet-visual-settings .creditjet-preview-table {
+    text-align: center;
+    border: 0;
+}
+
+#creditjet-visual-settings .creditjet-preview-table .creditjet-preview-cell {
+    padding: 2px 0;
+    border: 0;
+}
+
+#creditjet-visual-settings .creditjet-preview-table img {
+    margin: 0;
+    padding: 0;
+    max-width: 155px;
+    border: 0;
+    background: transparent;
+    vertical-align: middle;
+}
+
+#creditjet-visual-settings .jet-wide-button-wrap {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    --jet-wide-radius: 16px;
+    --jet-wide-max-width: 570px;
+    --jet-wide-font-size: 14px;
+    --jet-wide-bg: #ffffff;
+    --jet-wide-hover: #f0fdf4;
+    --jet-wide-border: #166534;
+    --jet-wide-color: #166534;
+    --jet-wide-color-second: #000000;
+}
+
+#creditjet-visual-settings .jet-wide-button {
+    width: 100%;
+    max-width: var(--jet-wide-max-width, 570px);
+    height: 50px;
+    max-height: 50px;
+    border: 2px solid var(--jet-wide-border, #166534);
+    background: var(--jet-wide-bg, #fff);
+    border-radius: var(--jet-wide-radius, 16px);
+    padding: 6px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+}
+
+#creditjet-visual-settings .jet-wide-button-head {
+    font-size: var(--jet-wide-font-size, 14px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: 700;
+    color: var(--jet-wide-color, #166534);
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+#creditjet-visual-settings .jet-wide-button-logo {
+    height: 16px;
+    width: auto;
+}
+
+#creditjet-visual-settings .jet-wide-button-text {
+    font-size: var(--jet-wide-font-size, 14px);
+    color: var(--jet-wide-color, #166534);
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#creditjet-visual-settings .jet-wide-button-text-second {
+    font-size: 75%;
+    font-weight: 400;
+    color: var(--jet-wide-color-second, #000000);
+}
+
+#creditjet-visual-settings .jet_scheme_grid_wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+#creditjet-visual-settings .jet_scheme_grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(72px, 1fr));
+    gap: 10px;
+    min-width: min-content;
+}
+
+#creditjet-visual-settings .jet_scheme_card {
+    display: block;
+    margin: 0;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+#creditjet-visual-settings .jet_scheme_radio {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+#creditjet-visual-settings .jet_scheme_preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 6px 4px;
+    box-sizing: border-box;
+    width: 100%;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+#creditjet-visual-settings .jet_scheme_preview_text {
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.15;
+    text-align: center;
+    word-break: break-word;
+}
+
+#creditjet-visual-settings .jet_scheme_card:hover .jet_scheme_preview {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+#creditjet-visual-settings .jet_scheme_card:has(.jet_scheme_radio:checked) .jet_scheme_preview {
+    outline: 3px solid #dc2626;
+    outline-offset: 1px;
+}
+
+#creditjet-visual-settings p.jet_scheme_summary {
+    margin: 12px 0 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+#creditjet-visual-settings .creditjet-scheme-field {
+    display: none;
+}
+
+#creditjet-visual-settings .creditjet-range-sync {
+    max-width: 100%;
+    margin-top: 10px;
+    height: 28px;
+}
+
+#creditjet-visual-settings .creditjet-number-narrow {
+    max-width: 140px;
+}
+
+#creditjet-visual-settings .jet_scheme_preview--0 {
+    background: #ffffff;
+    border: 2px solid #166534;
+    border-radius: 16px;
+}
+
+#creditjet-visual-settings .jet_scheme_preview--0 .jet_scheme_preview_text {
+    color: #166534;
+}
+
+#creditjet-visual-settings .jet_scheme_preview--1 {
+    background: #f6f7f7;
+    border: 2px solid #2271b1;
+    border-radius: 16px;
+}
+
+#creditjet-visual-settings .jet_scheme_preview--1 .jet_scheme_preview_text {
+    color: #1d2327;
+}
+
+#creditjet-visual-settings .jet_scheme_preview--2 {
+    background: #1e293b;
+    border: 2px solid #475569;
+    border-radius: 16px;
+}
+
+#creditjet-visual-settings .jet_scheme_preview--2 .jet_scheme_preview_text {
+    color: #f8fafc;
+}
+
+#creditjet-visual-settings .jet_scheme_preview--3 {
+    background: #fff7ed;
+    border: 2px solid #ea580c;
+    border-radius: 16px;
+}
+
+#creditjet-visual-settings .jet_scheme_preview--3 .jet_scheme_preview_text {
+    color: #9a3412;
+}
+
+#creditjet-visual-settings .jet_scheme_preview--4 {
+    background: #faf5ff;
+    border: 2px solid #7c3aed;
+    border-radius: 16px;
+}
+
+#creditjet-visual-settings .jet_scheme_preview--4 .jet_scheme_preview_text {
+    color: #5b21b6;
+}
+
+#creditjet-visual-settings .jet_scheme_preview--5 {
+    background: #fff1f2;
+    border: 2px solid #e11d48;
+    border-radius: 16px;
+}
+
+#creditjet-visual-settings .jet_scheme_preview--5 .jet_scheme_preview_text {
+    color: #881337;
+}
+
+#creditjet-visual-settings .jet_scheme_preview--6 {
+    background: #ffffff;
+    border: 2px solid #a1a1aa;
+    border-radius: 16px;
+}
+
+#creditjet-visual-settings .jet_scheme_preview--6 .jet_scheme_preview_text {
+    color: #18181b;
+}

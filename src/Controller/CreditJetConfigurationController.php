@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace PrestaShop\Module\CreditJet\Controller;
 
+use PrestaShop\Module\CreditJet\Form\CreditJetConfigurationDataConfiguration;
+use PrestaShop\Module\CreditJet\Util\JetButtonSettings;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,14 +39,38 @@ class CreditJetConfigurationController extends FrameworkBundleAdminController
         $link_to_delete_schema_creditjet = $context->link->getModuleLink('creditjet', 'deleteschema', []);
         $creditjet_schemes = $this->getAllJetKopRows();
 
-        return $this->render('@Modules/creditjet/views/templates/admin/form.html.twig', [
+        /** @var CreditJetConfigurationDataConfiguration $dataConfiguration */
+        $dataConfiguration = $this->get('prestashop.module.creditjet.form.creditjet_configuration_data_configuration');
+        $formConfig = $textForm->getData();
+        if (!is_array($formConfig)) {
+            $formConfig = $dataConfiguration->getConfiguration();
+        }
+
+        $buttonPreview = JetButtonSettings::getAdminPreviewContext(
+            $formConfig,
+            $this->getCreditJetModuleImageBaseUrl()
+        );
+
+        return $this->render('@Modules/creditjet/views/templates/admin/form.html.twig', array_merge([
             'creditJetConfigurationForm' => $textForm->createView(),
             'link_to_create_schema_creditjet' => $link_to_create_schema_creditjet,
             'link_to_delete_schema_creditjet' => $link_to_delete_schema_creditjet,
             'creditjet_schemes' => $creditjet_schemes,
             'active_tab' => 'creditjet-management',
             'creditjet_forms_js_version' => $this->getAssetVersion('views/js/creditjetForms.js'),
-        ]);
+            'creditjet_admin_visual_css_version' => $this->getAssetVersion('views/css/creditjet_admin_visual.css'),
+            'creditjet_admin_visual_js_version' => $this->getAssetVersion('views/js/creditjet_admin_visual.js'),
+        ], $buttonPreview));
+    }
+
+    private function getCreditJetModuleImageBaseUrl(): string
+    {
+        $baseUri = '/';
+        if (\defined('__PS_BASE_URI__')) {
+            $baseUri = (string) \constant('__PS_BASE_URI__');
+        }
+
+        return rtrim($baseUri, '/') . '/modules/creditjet/views/templates/img/';
     }
 
     private function getAssetVersion(string $relativePath): int

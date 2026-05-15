@@ -27,6 +27,7 @@ if (file_exists($autoloadPath)) {
     require_once $autoloadPath;
 }
 
+use PrestaShop\Module\CreditJet\Util\JetButtonSettings;
 use PrestaShop\PrestaShop\Core\Payment\PaymentOption;
 
 class CreditJet extends PaymentModule
@@ -91,6 +92,14 @@ class CreditJet extends PaymentModule
             'JET_VNOSKA' => 1,
             'JET_MINPRICE' => '75',
             'JET_EUR' => 2,
+            'JET_CREDIT_BUTTON_TYPE' => 'standard',
+            'JET_CREDIT_BUTTON_SCHEME' => 0,
+            'JET_CREDIT_BTN_TEXT' => 'Купи на изплащане с',
+            'JET_CREDIT_BTN_TEXT_CARD' => 'На вноски с твоята кредитна карта',
+            'JET_CREDIT_BTN_LOGO' => 1,
+            'JET_CREDIT_BTN_MAX_WIDTH' => 570,
+            'JET_CREDIT_BTN_ROUND' => 16,
+            'JET_CREDIT_BTN_FONT' => 14,
         ];
 
         foreach ($defaults as $name => $value) {
@@ -121,6 +130,14 @@ class CreditJet extends PaymentModule
             !Configuration::deleteByName('JET_VNOSKA') ||
             !Configuration::deleteByName('JET_MINPRICE') ||
             !Configuration::deleteByName('JET_EUR') ||
+            !Configuration::deleteByName('JET_CREDIT_BUTTON_TYPE') ||
+            !Configuration::deleteByName('JET_CREDIT_BUTTON_SCHEME') ||
+            !Configuration::deleteByName('JET_CREDIT_BTN_TEXT') ||
+            !Configuration::deleteByName('JET_CREDIT_BTN_TEXT_CARD') ||
+            !Configuration::deleteByName('JET_CREDIT_BTN_LOGO') ||
+            !Configuration::deleteByName('JET_CREDIT_BTN_MAX_WIDTH') ||
+            !Configuration::deleteByName('JET_CREDIT_BTN_ROUND') ||
+            !Configuration::deleteByName('JET_CREDIT_BTN_FONT') ||
             !$this->uninstallDb()
         )
             return false;
@@ -163,6 +180,22 @@ class CreditJet extends PaymentModule
 
     public function hookActionFrontControllerSetMedia($params)
     {
+        $jetButtonContext = JetButtonSettings::getFrontContext();
+        if ($jetButtonContext['jet_button_type'] === JetButtonSettings::BUTTON_TYPE_WIDE) {
+            $wideCssPath = _PS_MODULE_DIR_ . $this->name . '/css/creditjet_wide_button.css';
+            if (file_exists($wideCssPath)) {
+                $this->context->controller->registerStylesheet(
+                    'module-creditjet-wide-button-css',
+                    'modules/' . $this->name . '/css/creditjet_wide_button.css',
+                    [
+                        'media' => 'all',
+                        'priority' => 201,
+                        'version' => filemtime($wideCssPath),
+                    ]
+                );
+            }
+        }
+
         if ('product' === $this->context->controller->php_self) {
             $this->context->controller->registerJavascript(
                 'module-creditjet-product-js',
@@ -331,7 +364,7 @@ class CreditJet extends PaymentModule
             $modalpayment_jet = 'modalpayment_jet';
         }
 
-        $this->context->smarty->assign([
+        $this->context->smarty->assign(array_merge([
             'jet_gap' => $jet_gap,
             'jet_price' => number_format($jet_price_before, 2, '.', ''),
             'jet_card_in' => $jet_card_in,
@@ -351,8 +384,8 @@ class CreditJet extends PaymentModule
             'jet_name' => $jet_name,
             'jet_lastname' => $jet_lastname,
             'jet_email' => $jet_email,
-            'jet_phone' => $jet_phone
-        ]);
+            'jet_phone' => $jet_phone,
+        ], $this->getJetButtonSmartyVars()));
 
         return $this->display(__FILE__, 'creditjet.tpl');
     }
@@ -497,7 +530,7 @@ class CreditJet extends PaymentModule
         $jet_products_ct = substr($jet_products_ct, 0, -1);
         $jet_products_vr = substr($jet_products_vr, 0, -1);
 
-        $this->context->smarty->assign([
+        $this->context->smarty->assign(array_merge([
             'jet_price' => number_format($jet_price_before, 2, '.', ''),
             'jet_card_in' => $jet_card_in,
             'jet_products_id' => $jet_products_id,
@@ -520,8 +553,8 @@ class CreditJet extends PaymentModule
             'jet_name' => $jet_name,
             'jet_lastname' => $jet_lastname,
             'jet_phone' => $jet_phone,
-            'jet_email' => $jet_email
-        ]);
+            'jet_email' => $jet_email,
+        ], $this->getJetButtonSmartyVars()));
 
         return $this->display(__FILE__, 'shoppingbag.tpl');
     }
@@ -675,5 +708,13 @@ class CreditJet extends PaymentModule
         }
 
         return $payment_options;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function getJetButtonSmartyVars(): array
+    {
+        return JetButtonSettings::getFrontContext();
     }
 }

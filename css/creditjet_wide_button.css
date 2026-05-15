@@ -1,0 +1,83 @@
+.jet-wide-buttons-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+}
+
+.jet-wide-button-wrap {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    --jet-wide-radius: 16px;
+    --jet-wide-max-width: 570px;
+    --jet-wide-font-size: 14px;
+    --jet-wide-bg: #ffffff;
+    --jet-wide-hover: #f0fdf4;
+    --jet-wide-border: #166534;
+    --jet-wide-color: #166534;
+    --jet-wide-color-second: #000000;
+}
+
+.jet-wide-button {
+    width: 100%;
+    max-width: var(--jet-wide-max-width, 570px);
+    min-height: 50px;
+    border: 2px solid var(--jet-wide-border, #166534);
+    background: var(--jet-wide-bg, #fff);
+    border-radius: var(--jet-wide-radius, 16px);
+    padding: 6px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.jet-wide-button:hover {
+    background: var(--jet-wide-hover, #f0fdf4);
+}
+
+.jet-wide-button-head {
+    font-size: var(--jet-wide-font-size, 14px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: 700;
+    color: var(--jet-wide-color, #166534);
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.jet-wide-button-logo {
+    height: 16px;
+    width: auto;
+}
+
+.jet-wide-button-text {
+    font-size: var(--jet-wide-font-size, 14px);
+    color: var(--jet-wide-color, #166534);
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.jet-wide-button-text-second {
+    font-size: 75%;
+    font-weight: 400;
+    color: var(--jet-wide-color-second, #000000);
+}
+
+.jet_product_button_container .jet-wide-button-wrap,
+#jet-product-button-container .jet-wide-button-wrap {
+    margin: 0 auto;
+}

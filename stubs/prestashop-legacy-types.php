@@ -19,6 +19,10 @@ if (!defined('_PS_MODULE_DIR_')) {
     define('_PS_MODULE_DIR_', dirname(__DIR__, 2) . DIRECTORY_SEPARATOR);
 }
 
+if (!defined('__PS_BASE_URI__')) {
+    define('__PS_BASE_URI__', '/');
+}
+
 if (!class_exists('Module', false)) {
     final class _CreditJetIdeContext
     {
