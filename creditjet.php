@@ -180,6 +180,11 @@ class CreditJet extends PaymentModule
 
     public function hookActionFrontControllerSetMedia($params)
     {
+        $frontController = $this->context->controller->php_self ?? '';
+        if (in_array($frontController, ['product', 'cart', 'order'], true)) {
+            $this->registerCreditJetFrontFonts();
+        }
+
         $jetButtonContext = JetButtonSettings::getFrontContext();
         if ($jetButtonContext['jet_button_type'] === JetButtonSettings::BUTTON_TYPE_WIDE) {
             $wideCssPath = _PS_MODULE_DIR_ . $this->name . '/css/creditjet_wide_button.css';
@@ -651,5 +656,23 @@ class CreditJet extends PaymentModule
     private function getJetButtonSmartyVars(): array
     {
         return JetButtonSettings::getFrontContext();
+    }
+
+    private function registerCreditJetFrontFonts(): void
+    {
+        $fontsCssPath = _PS_MODULE_DIR_ . $this->name . '/css/creditjet_fonts.css';
+        if (!file_exists($fontsCssPath)) {
+            return;
+        }
+
+        $this->context->controller->registerStylesheet(
+            'module-creditjet-fonts-css',
+            'modules/' . $this->name . '/css/creditjet_fonts.css',
+            [
+                'media' => 'all',
+                'priority' => 199,
+                'version' => filemtime($fontsCssPath),
+            ]
+        );
     }
 }
