@@ -110,6 +110,29 @@
         return null;
     }
 
+    var CONFIGURED_FORM_FIELD_ATTRS = {
+        jet_btn_text: {
+            idAttr: "data-jet-btn-text-id",
+            nameAttr: "data-jet-btn-text-name",
+        },
+        jet_btn_text_card: {
+            idAttr: "data-jet-btn-text-card-id",
+            nameAttr: "data-jet-btn-text-card-name",
+        },
+        jet_btn_max_width: {
+            idAttr: "data-jet-btn-max-width-id",
+            nameAttr: "data-jet-btn-max-width-name",
+        },
+        jet_btn_round: {
+            idAttr: "data-jet-btn-round-id",
+            nameAttr: "data-jet-btn-round-name",
+        },
+        jet_btn_font: {
+            idAttr: "data-jet-btn-font-id",
+            nameAttr: "data-jet-btn-font-name",
+        },
+    };
+
     function findInputByExactName(fullName) {
         if (!fullName) {
             return null;
@@ -127,39 +150,32 @@
         return null;
     }
 
-    function findConfiguredTextField(which) {
+    function findConfiguredFormField(fieldName) {
         var visualRoot = document.getElementById("creditjet-visual-settings");
-        if (!visualRoot) {
-            return null;
+        var meta = CONFIGURED_FORM_FIELD_ATTRS[fieldName];
+        if (visualRoot && meta) {
+            var fieldId = visualRoot.getAttribute(meta.idAttr) || "";
+            var fullName = visualRoot.getAttribute(meta.nameAttr) || "";
+            if (fieldId) {
+                var byId = document.getElementById(fieldId);
+                if (byId) {
+                    return byId;
+                }
+            }
+            if (fullName) {
+                var byName = findInputByExactName(fullName);
+                if (byName) {
+                    return byName;
+                }
+            }
         }
+        return findVisualField(fieldName, null);
+    }
 
-        var fieldId = "";
-        var fieldName = "";
-        if (which === "main") {
-            fieldId = visualRoot.getAttribute("data-jet-btn-text-id") || "";
-            fieldName = visualRoot.getAttribute("data-jet-btn-text-name") || "";
-        } else if (which === "card") {
-            fieldId =
-                visualRoot.getAttribute("data-jet-btn-text-card-id") || "";
-            fieldName =
-                visualRoot.getAttribute("data-jet-btn-text-card-name") || "";
-        }
-
-        var el = null;
-        if (fieldId) {
-            el = document.getElementById(fieldId);
-        }
-        if (!el && fieldName) {
-            el = findInputByExactName(fieldName);
-        }
-        if (!el) {
-            el = findVisualField(
-                which === "card" ? "jet_btn_text_card" : "jet_btn_text",
-                null,
-            );
-        }
-
-        return el;
+    function findConfiguredTextField(which) {
+        return findConfiguredFormField(
+            which === "card" ? "jet_btn_text_card" : "jet_btn_text",
+        );
     }
 
     function setTextFieldValue(which, value) {
@@ -217,40 +233,33 @@
             fireFieldEvents(logoInput);
         }
 
-        var maxWidthEl = findVisualField(
+        function setNumberAndRange(fieldName, rangeId, value) {
+            var numEl = findConfiguredFormField(fieldName);
+            var rangeEl = document.getElementById(rangeId);
+            if (numEl) {
+                numEl.value = value;
+                fireFieldEvents(numEl);
+            }
+            if (rangeEl) {
+                rangeEl.value = value;
+            }
+        }
+
+        setNumberAndRange(
             "jet_btn_max_width",
-            "creditjet_btn_max_width",
-        );
-        var maxWidthRange = document.getElementById(
             "creditjet_btn_max_width_range",
+            d.jet_btn_max_width,
         );
-        if (maxWidthEl) {
-            maxWidthEl.value = d.jet_btn_max_width;
-            fireFieldEvents(maxWidthEl);
-        }
-        if (maxWidthRange) {
-            maxWidthRange.value = d.jet_btn_max_width;
-        }
-
-        var roundEl = findVisualField("jet_btn_round", "creditjet_btn_round");
-        var roundRange = document.getElementById("creditjet_btn_round_range");
-        if (roundEl) {
-            roundEl.value = d.jet_btn_round;
-            fireFieldEvents(roundEl);
-        }
-        if (roundRange) {
-            roundRange.value = d.jet_btn_round;
-        }
-
-        var fontEl = findVisualField("jet_btn_font", "creditjet_btn_font");
-        var fontRange = document.getElementById("creditjet_btn_font_range");
-        if (fontEl) {
-            fontEl.value = d.jet_btn_font;
-            fireFieldEvents(fontEl);
-        }
-        if (fontRange) {
-            fontRange.value = d.jet_btn_font;
-        }
+        setNumberAndRange(
+            "jet_btn_round",
+            "creditjet_btn_round_range",
+            d.jet_btn_round,
+        );
+        setNumberAndRange(
+            "jet_btn_font",
+            "creditjet_btn_font_range",
+            d.jet_btn_font,
+        );
 
         if (creditjetVisualPreviewApi) {
             creditjetVisualPreviewApi.applyScheme(schemeIdx);
@@ -405,18 +414,7 @@
         }
 
         function findFormInput(fieldName) {
-            if (fieldName === "jet_btn_text") {
-                return findConfiguredTextField("main");
-            }
-            if (fieldName === "jet_btn_text_card") {
-                return findConfiguredTextField("card");
-            }
-            var idMap = {
-                jet_btn_max_width: "creditjet_btn_max_width",
-                jet_btn_round: "creditjet_btn_round",
-                jet_btn_font: "creditjet_btn_font",
-            };
-            return findVisualField(fieldName, idMap[fieldName] || null);
+            return findConfiguredFormField(fieldName);
         }
 
         function findFormNumberInput(fieldName) {
