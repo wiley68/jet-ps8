@@ -8,25 +8,25 @@
     {include file='module:creditjet/views/templates/hook/_jet_payment_buttons.tpl'}
 </div>
 
-<div id="jet-product-popup-container" class="{$modalpayment_jet}">
+<div id="jet-product-popup-container" class="modalpayment_jet">
     <div class="modalpayment-content_jet">
         <div id="jet_body">
-            <div class="{$jet_PopUp_Detailed_v1}">
-                <div class="{$jet_Mask}">
+            <div class="jet_PopUp_Detailed_v1">
+                <div class="jet_Mask">
 
                     <div id="jet_step_1">
                         <div class="jet_row">
-                            <div class="{$jet_column_left}">
+                            <div class="jet_column_left">
                                 Първоначална вноска ({$jet_sign})
                             </div>
-                            <div class="{$jet_column_right}">
+                            <div class="jet_column_right">
                                 <input class="jet_input_text_active" type="number" min="0" id="jet_parva" value=0 />
                                 <button type="button" id="btn_preizcisli"
                                     class="jet_button_preizcisli">Преизчисли</button>
                             </div>
                         </div>
                         <div class="jet_row">
-                            <div class="{$jet_column_left}">
+                            <div class="jet_column_left">
                                 {if $jet_sign_second == ''}
                                     Цена на стоките ({$jet_sign})
                                 {else}
@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="jet_row">
-                            <div class="{$jet_column_left}">
+                            <div class="jet_column_left">
                                 Брой погасителни вноски
                             </div>
                             <div class="jet_column_right">
@@ -71,11 +71,11 @@
                             </div>
                         </div>
                         <div class="jet_row">
-                            <div class="{$jet_column_left}">
+                            <div class="jet_column_left">
                                 {if $jet_sign_second == ''}
-                                    {$obshto_credit_text} ({$jet_sign})
+                                    Общо кредит ({$jet_sign})
                                 {else}
-                                    {$obshto_credit_text} ({$jet_sign}
+                                    Общо кредит ({$jet_sign}
                                     <span
                                         style='font-size:60%;font-weight:400;height:16px;'>&nbsp;/&nbsp;{$jet_sign_second}</span>)
                                 {/if}
@@ -97,7 +97,7 @@
                             </div>
                         </div>
                         <div class="jet_row">
-                            <div class="{$jet_column_left}">
+                            <div class="jet_column_left">
                                 {if $jet_sign_second == ''}
                                     Месечна вноска ({$jet_sign})
                                 {else}
@@ -123,7 +123,7 @@
                             </div>
                         </div>
                         <div class="jet_row">
-                            <div class="{$jet_column_left}">
+                            <div class="jet_column_left">
                                 Фикс ГПР (%)
                             </div>
                             <div class="jet_column_right">
@@ -134,7 +134,7 @@
                             </div>
                         </div>
                         <div class="jet_row">
-                            <div class="{$jet_column_left}">
+                            <div class="jet_column_left">
                                 ГЛП (%)
                             </div>
                             <div class="jet_column_right">
@@ -145,11 +145,11 @@
                             </div>
                         </div>
                         <div class="jet_row">
-                            <div class="{$jet_column_left}">
+                            <div class="jet_column_left">
                                 {if $jet_sign_second == ''}
-                                    {$obshto_plashtania} ({$jet_sign})
+                                    Общо плащания ({$jet_sign})
                                 {else}
-                                    {$obshto_plashtania} ({$jet_sign}
+                                    Общо плащания ({$jet_sign}
                                     <span
                                         style='font-size:60%;font-weight:400;height:16px;'>&nbsp;/&nbsp;{$jet_sign_second}</span>)
                                 {/if}
@@ -206,7 +206,7 @@
 
                     <div id="jet_step_2">
                         <div class="jet_row">
-                            <div class="{$jet_column_left}">
+                            <div class="jet_column_left">
                                 Име *
                             </div>
                             <div class="jet_column_right">
@@ -216,7 +216,7 @@
                             </div>
                         </div>
                         <div class="jet_row">
-                            <div class="{$jet_column_left}">
+                            <div class="jet_column_left">
                                 Фамилия *
                             </div>
                             <div class="jet_column_right">
@@ -225,7 +225,7 @@
                             </div>
                         </div>
                         <div class="jet_row">
-                            <div class="{$jet_column_left}">
+                            <div class="jet_column_left">
                                 ЕГН *
                             </div>
                             <div class="jet_column_right">
@@ -234,7 +234,7 @@
                             </div>
                         </div>
                         <div class="jet_row">
-                            <div class="{$jet_column_left}">
+                            <div class="jet_column_left">
                                 Мобилен телефон *
                             </div>
                             <div class="jet_column_right">
@@ -243,7 +243,7 @@
                             </div>
                         </div>
                         <div class="jet_row">
-                            <div class="{$jet_column_left}">
+                            <div class="jet_column_left">
                                 E-Mail *
                             </div>
                             <div class="jet_column_right">

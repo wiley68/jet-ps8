@@ -49,21 +49,6 @@
     color: #052e16 !important;
 }
 
-.jetm_column_left {
-    display: flex !important;
-    -webkit-box-sizing: border-box !important;
-    -moz-box-sizing: border-box !important;
-    box-sizing: border-box !important;
-    flex: 1 !important;
-    align-items: center !important;
-    height: 38px !important;
-    font-size: 10pt !important;
-    font-weight: 500 !important;
-    line-height: 12px !important;
-    background-color: transparent !important;
-    color: #052e16 !important;
-}
-
 .jet_column_right {
     display: flex !important;
     -webkit-box-sizing: border-box !important;
@@ -73,18 +58,6 @@
     align-items: center !important;
     justify-content: right !important;
     height: 38px !important;
-}
-
-.jetm_column_right {
-    display: flex !important;
-    -webkit-box-sizing: border-box !important;
-    -moz-box-sizing: border-box !important;
-    box-sizing: border-box !important;
-    flex: 1 !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    justify-content: right !important;
-    gap: 5px !important;
 }
 
 input[type="text"].jet_input_text_active,
@@ -308,4 +281,121 @@ input[type="checkbox"].jet_uslovia {
 
 .jet_uslovia_a:focus {
     outline: none !important;
+}
+
+@media (max-width: 767px) {
+    .jet_panel {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+
+    .jet_panel .jet_row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 6px !important;
+        padding: 0 12px 8px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .jet_panel .jet_column_left,
+    .jet_panel .jet_column_right {
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        justify-content: flex-start !important;
+        align-items: stretch !important;
+    }
+
+    .jet_panel .jet_column_left {
+        font-size: 10pt !important;
+        line-height: 12px !important;
+        padding: 4px 0 2px !important;
+    }
+
+    .jet_panel .jet_column_right {
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        gap: 8px !important;
+    }
+
+    .jet_panel .jet_column_right > .jet_input_text_active,
+    .jet_panel .jet_column_right > input.jet_input_text_active,
+    .jet_panel .jet_column_right > select.jet_input_text,
+    .jet_panel .jet_column_right > .jet_input_text,
+    .jet_panel .jet_column_right > .jet_button_preizcisli {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: none !important;
+        margin-left: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    .jet_panel .jet_column_right > .jet_input_text_active,
+    .jet_panel .jet_column_right > input.jet_input_text_active,
+    .jet_panel .jet_column_right > select.jet_input_text {
+        text-align: right !important;
+        padding: 8px 10px !important;
+    }
+
+    .jet_panel .jet_column_right > .jet_input_text {
+        min-width: 0 !important;
+    }
+
+    .jet_panel .jet_row_footer {
+        padding: 8px 12px !important;
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+    }
+
+    .jet_panel .jet_row_footer a,
+    .jet_panel .jet_row_footer span {
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+    }
+
+    .jet_panel .jet_column_left {
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+    }
+
+    .jet_panel .jet_input_text {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: none !important;
+        min-width: 0 !important;
+        padding: 6px 8px !important;
+        justify-content: flex-end !important;
+    }
+
+    .jet_panel .jet_input_text > div {
+        flex: 0 0 auto !important;
+        width: auto !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        overflow: hidden !important;
+        text-align: right !important;
+        justify-content: flex-end !important;
+    }
+
+    .jet_panel .jet_input_text > div:last-child {
+        margin-left: 4px !important;
+    }
+
+    .jet_panel .jet_input_text > div:last-child:empty {
+        display: none !important;
+        margin: 0 !important;
+    }
+
+    .jet_panel .jet_row_footer > div {
+        max-width: 100% !important;
+    }
+
+    .jet_panel input[type="checkbox"].jet_uslovia {
+        transform: none !important;
+    }
 }

@@ -78,3 +78,14 @@
 #jet-product-button-container .jet-wide-button-wrap {
     margin: 0 auto;
 }
+
+@media (max-width: 767px) {
+    .jet-wide-button-head,
+    .jet-wide-button-text {
+        white-space: normal !important;
+    }
+
+    .jet-wide-button {
+        max-width: 100% !important;
+    }
+}

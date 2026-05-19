@@ -9,17 +9,17 @@
     <div id="jet_alert_overlay" class="jet_alert_overlay"></div>
     <div class="jet_panel">
         <div class="jet_row">
-            <div class="{$jet_column_left}">
+            <div class="jet_column_left">
                 Първоначална вноска ({$jet_sign})
             </div>
-            <div class="{$jet_column_right}">
+            <div class="jet_column_right">
                 <input class="jet_input_text_active" type="number" min="0" id="jet_parva" name="jet_parva_input"
                     value=0 />
                 <button type="button" id="btn_preizcisli" class="jet_button_preizcisli">Преизчисли</button>
             </div>
         </div>
         <div class="jet_row">
-            <div class="{$jet_column_left}">
+            <div class="jet_column_left">
                 {if $jet_sign_second == ''}
                     Цена на стоките ({$jet_sign})
                 {else}
@@ -45,7 +45,7 @@
             </div>
         </div>
         <div class="jet_row">
-            <div class="{$jet_column_left}">
+            <div class="jet_column_left">
                 Брой погасителни вноски
             </div>
             <div class="jet_column_right">
@@ -64,7 +64,7 @@
             </div>
         </div>
         <div class="jet_row">
-            <div class="{$jet_column_left}">
+            <div class="jet_column_left">
                 {if $jet_sign_second == ''}
                     Общо кредит ({$jet_sign})
                 {else}
@@ -90,7 +90,7 @@
             </div>
         </div>
         <div class="jet_row">
-            <div class="{$jet_column_left}">
+            <div class="jet_column_left">
                 {if $jet_sign_second == ''}
                     Месечна вноска ({$jet_sign})
                 {else}
@@ -116,7 +116,7 @@
             </div>
         </div>
         <div class="jet_row">
-            <div class="{$jet_column_left}">
+            <div class="jet_column_left">
                 Фикс ГПР (%)
             </div>
             <div class="jet_column_right">
@@ -128,7 +128,7 @@
             </div>
         </div>
         <div class="jet_row">
-            <div class="{$jet_column_left}">
+            <div class="jet_column_left">
                 ГЛП (%)
             </div>
             <div class="jet_column_right">
@@ -140,7 +140,7 @@
             </div>
         </div>
         <div class="jet_row">
-            <div class="{$jet_column_left}">
+            <div class="jet_column_left">
                 {if $jet_sign_second == ''}
                     Общо плащания ({$jet_sign})
                 {else}
@@ -166,7 +166,7 @@
             </div>
         </div>
         <div class="jet_row">
-            <div class="{$jet_column_left}">
+            <div class="jet_column_left">
                 ЕГН *
             </div>
             <div class="jet_column_right">

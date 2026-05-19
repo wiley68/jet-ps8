@@ -2,6 +2,14 @@ jQuery(document).ready(function ($) {
     let card;
     card = 0;
 
+    const jetModalOpen = () => {
+        document.documentElement.classList.add("creditjet-modal-open");
+    };
+
+    const jetModalClose = () => {
+        document.documentElement.classList.remove("creditjet-modal-open");
+    };
+
     /* function */
     const jetLoad = () => {
         if ($("#btn_jet").length !== 0) {
@@ -11,6 +19,7 @@ jQuery(document).ready(function ($) {
             $("#btn_jet").on("click", function (event) {
                 card = 0;
                 jetCalculate();
+                jetModalOpen();
                 $("#jet-product-popup-container").css("display", "block");
             });
 
@@ -18,6 +27,7 @@ jQuery(document).ready(function ($) {
                 $("#btn_jet_card").on("click", function (event) {
                     card = 1;
                     jetCalculate();
+                    jetModalOpen();
                     $("#jet-product-popup-container").css("display", "block");
                 });
             }
@@ -199,6 +209,7 @@ jQuery(document).ready(function ($) {
     };
 
     const jetClose = () => {
+        jetModalClose();
         $("#jet-product-popup-container").css("display", "none");
         $("#jet_step_1").css("display", "block");
         $("#jet_step_2").css("display", "none");

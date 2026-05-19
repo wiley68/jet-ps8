@@ -1,8 +1,8 @@
 {if $jet_button_type == 'wide'}
     <div class="jet-wide-buttons-stack">
         <div class="jet-wide-button-wrap" style="{$jet_wide_wrap_style|escape:'html':'UTF-8'}">
-            <div id="btn_jet" class="jet-wide-button jet_logo" role="button" tabindex="0"
-                title="Кредитен модул ПБ Лични Финанси" aria-label="Кредитен модул ПБ Лични Финанси">
+            <div id="btn_jet" class="jet-wide-button" role="button" tabindex="0" title="Кредитен модул ПБ Лични Финанси"
+                aria-label="Кредитен модул ПБ Лични Финанси">
                 <div class="jet-wide-button-head">
                     <span class="jet-wide-button-label">{$jet_btn_text|escape:'html':'UTF-8'}</span>
                     {if $jet_btn_logo == 1}
@@ -23,7 +23,7 @@
         </div>
         {if $jet_card_in == 1}
             <div class="jet-wide-button-wrap" style="{$jet_wide_wrap_style|escape:'html':'UTF-8'}">
-                <div id="btn_jet_card" class="jet-wide-button jet_logo" role="button" tabindex="0"
+                <div id="btn_jet_card" class="jet-wide-button" role="button" tabindex="0"
                     title="Специални предложения само за клиенти, които вече имат кредитна карта, издадена от ПБ Лични Финанси."
                     aria-label="Специални предложения само за клиенти, които вече имат кредитна карта, издадена от ПБ Лични Финанси.">
                     <div class="jet-wide-button-head">
