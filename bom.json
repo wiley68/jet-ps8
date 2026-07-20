@@ -1,0 +1,601 @@
+{
+    "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.5",
+    "serialNumber": "urn:uuid:548df9bf-2308-4400-93d5-cdc68744c7a6",
+    "version": 1,
+    "metadata": {
+        "timestamp": "2026-07-20T11:21:28Z",
+        "tools": [
+            {
+                "name": "composer",
+                "version": "2.8.3"
+            },
+            {
+                "vendor": "cyclonedx",
+                "name": "cyclonedx-php-composer",
+                "version": "v6.2.0",
+                "externalReferences": [
+                    {
+                        "type": "distribution",
+                        "url": "https://api.github.com/repos/CycloneDX/cyclonedx-php-composer/zipball/934440a5ef7c3c3cdb58c3c3d389d412630ccbf6",
+                        "comment": "dist reference: 934440a5ef7c3c3cdb58c3c3d389d412630ccbf6"
+                    },
+                    {
+                        "type": "vcs",
+                        "url": "https://github.com/CycloneDX/cyclonedx-php-composer.git",
+                        "comment": "source reference: 934440a5ef7c3c3cdb58c3c3d389d412630ccbf6"
+                    },
+                    {
+                        "type": "website",
+                        "url": "https://github.com/CycloneDX/cyclonedx-php-composer/#readme",
+                        "comment": "as detected from Composer manifest 'homepage'"
+                    },
+                    {
+                        "type": "issue-tracker",
+                        "url": "https://github.com/CycloneDX/cyclonedx-php-composer/issues",
+                        "comment": "as detected from Composer manifest 'support.issues'"
+                    },
+                    {
+                        "type": "vcs",
+                        "url": "https://github.com/CycloneDX/cyclonedx-php-composer/",
+                        "comment": "as detected from Composer manifest 'support.source'"
+                    }
+                ]
+            },
+            {
+                "vendor": "cyclonedx",
+                "name": "cyclonedx-library",
+                "version": "v4.1.0",
+                "externalReferences": [
+                    {
+                        "type": "distribution",
+                        "url": "https://api.github.com/repos/CycloneDX/cyclonedx-php-library/zipball/6a4f249cecf3b4211ad6bd8cee30fca89e0f81e5",
+                        "comment": "dist reference: 6a4f249cecf3b4211ad6bd8cee30fca89e0f81e5"
+                    },
+                    {
+                        "type": "vcs",
+                        "url": "https://github.com/CycloneDX/cyclonedx-php-library.git",
+                        "comment": "source reference: 6a4f249cecf3b4211ad6bd8cee30fca89e0f81e5"
+                    },
+                    {
+                        "type": "website",
+                        "url": "https://github.com/CycloneDX/cyclonedx-php-library/#readme",
+                        "comment": "as detected from Composer manifest 'homepage'"
+                    },
+                    {
+                        "type": "documentation",
+                        "url": "https://cyclonedx-php-library.readthedocs.io",
+                        "comment": "as detected from Composer manifest 'support.docs'"
+                    },
+                    {
+                        "type": "issue-tracker",
+                        "url": "https://github.com/CycloneDX/cyclonedx-php-library/issues",
+                        "comment": "as detected from Composer manifest 'support.issues'"
+                    },
+                    {
+                        "type": "vcs",
+                        "url": "https://github.com/CycloneDX/cyclonedx-php-library/",
+                        "comment": "as detected from Composer manifest 'support.source'"
+                    }
+                ]
+            }
+        ],
+        "component": {
+            "bom-ref": "prestashop/creditjet-dev-main",
+            "type": "application",
+            "name": "creditjet",
+            "version": "dev-main",
+            "group": "prestashop",
+            "description": "\u041f\u0430\u0440\u0438\u0431\u0430 \u043b\u0438\u0447\u043d\u0438 \u0444\u0438\u043d\u0430\u043d\u0441\u0438 \u041a\u0440\u0435\u0434\u0438\u0442\u0435\u043d \u043a\u0430\u043b\u043a\u0443\u043b\u0430\u0442\u043e\u0440",
+            "author": "Ilko Ivanov",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "AFL-3.0"
+                    }
+                }
+            ],
+            "purl": "pkg:composer/prestashop/creditjet@dev-main",
+            "properties": [
+                {
+                    "name": "cdx:composer:package:distReference",
+                    "value": "17470d08185fa3d6eea5edac5e47c6db71e17db1"
+                },
+                {
+                    "name": "cdx:composer:package:sourceReference",
+                    "value": "17470d08185fa3d6eea5edac5e47c6db71e17db1"
+                },
+                {
+                    "name": "cdx:composer:package:type",
+                    "value": "prestashop-module"
+                }
+            ]
+        }
+    },
+    "components": [
+        {
+            "bom-ref": "composer/spdx-licenses-1.6.0.0",
+            "type": "library",
+            "name": "spdx-licenses",
+            "version": "1.6.0",
+            "group": "composer",
+            "description": "SPDX licenses list and validation library.",
+            "author": "Nils Adermann, Jordi Boggiano, Rob Bast",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "MIT"
+                    }
+                }
+            ],
+            "purl": "pkg:composer/composer/spdx-licenses@1.6.0",
+            "externalReferences": [
+                {
+                    "type": "distribution",
+                    "url": "https://api.github.com/repos/composer/spdx-licenses/zipball/5ecd0cb4177696f9fd48f1605dda81db3dee7889",
+                    "comment": "dist reference: 5ecd0cb4177696f9fd48f1605dda81db3dee7889"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/composer/spdx-licenses.git",
+                    "comment": "source reference: 5ecd0cb4177696f9fd48f1605dda81db3dee7889"
+                },
+                {
+                    "type": "chat",
+                    "url": "ircs://irc.libera.chat:6697/composer",
+                    "comment": "as detected from Composer manifest 'support.irc'"
+                },
+                {
+                    "type": "issue-tracker",
+                    "url": "https://github.com/composer/spdx-licenses/issues",
+                    "comment": "as detected from Composer manifest 'support.issues'"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/composer/spdx-licenses/tree/1.6.0",
+                    "comment": "as detected from Composer manifest 'support.source'"
+                }
+            ],
+            "properties": [
+                {
+                    "name": "cdx:composer:package:distReference",
+                    "value": "5ecd0cb4177696f9fd48f1605dda81db3dee7889"
+                },
+                {
+                    "name": "cdx:composer:package:sourceReference",
+                    "value": "5ecd0cb4177696f9fd48f1605dda81db3dee7889"
+                },
+                {
+                    "name": "cdx:composer:package:type",
+                    "value": "library"
+                },
+                {
+                    "name": "cdx:composer:package:isDevRequirement",
+                    "value": "true"
+                }
+            ]
+        },
+        {
+            "bom-ref": "cyclonedx/cyclonedx-library-4.1.0.0",
+            "type": "library",
+            "name": "cyclonedx-library",
+            "version": "v4.1.0",
+            "group": "cyclonedx",
+            "description": "Work with CycloneDX documents.",
+            "author": "Jan Kowalleck",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "Apache-2.0"
+                    }
+                }
+            ],
+            "purl": "pkg:composer/cyclonedx/cyclonedx-library@v4.1.0",
+            "externalReferences": [
+                {
+                    "type": "distribution",
+                    "url": "https://api.github.com/repos/CycloneDX/cyclonedx-php-library/zipball/6a4f249cecf3b4211ad6bd8cee30fca89e0f81e5",
+                    "comment": "dist reference: 6a4f249cecf3b4211ad6bd8cee30fca89e0f81e5"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/CycloneDX/cyclonedx-php-library.git",
+                    "comment": "source reference: 6a4f249cecf3b4211ad6bd8cee30fca89e0f81e5"
+                },
+                {
+                    "type": "website",
+                    "url": "https://github.com/CycloneDX/cyclonedx-php-library/#readme",
+                    "comment": "as detected from Composer manifest 'homepage'"
+                },
+                {
+                    "type": "documentation",
+                    "url": "https://cyclonedx-php-library.readthedocs.io",
+                    "comment": "as detected from Composer manifest 'support.docs'"
+                },
+                {
+                    "type": "issue-tracker",
+                    "url": "https://github.com/CycloneDX/cyclonedx-php-library/issues",
+                    "comment": "as detected from Composer manifest 'support.issues'"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/CycloneDX/cyclonedx-php-library/",
+                    "comment": "as detected from Composer manifest 'support.source'"
+                }
+            ],
+            "properties": [
+                {
+                    "name": "cdx:composer:package:distReference",
+                    "value": "6a4f249cecf3b4211ad6bd8cee30fca89e0f81e5"
+                },
+                {
+                    "name": "cdx:composer:package:sourceReference",
+                    "value": "6a4f249cecf3b4211ad6bd8cee30fca89e0f81e5"
+                },
+                {
+                    "name": "cdx:composer:package:type",
+                    "value": "library"
+                },
+                {
+                    "name": "cdx:composer:package:isDevRequirement",
+                    "value": "true"
+                }
+            ]
+        },
+        {
+            "bom-ref": "cyclonedx/cyclonedx-php-composer-6.2.0.0",
+            "type": "library",
+            "name": "cyclonedx-php-composer",
+            "version": "v6.2.0",
+            "group": "cyclonedx",
+            "description": "Creates CycloneDX Software Bill-of-Materials (SBOM) from PHP Composer projects",
+            "author": "Jan Kowalleck",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "Apache-2.0"
+                    }
+                }
+            ],
+            "purl": "pkg:composer/cyclonedx/cyclonedx-php-composer@v6.2.0",
+            "externalReferences": [
+                {
+                    "type": "distribution",
+                    "url": "https://api.github.com/repos/CycloneDX/cyclonedx-php-composer/zipball/934440a5ef7c3c3cdb58c3c3d389d412630ccbf6",
+                    "comment": "dist reference: 934440a5ef7c3c3cdb58c3c3d389d412630ccbf6"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/CycloneDX/cyclonedx-php-composer.git",
+                    "comment": "source reference: 934440a5ef7c3c3cdb58c3c3d389d412630ccbf6"
+                },
+                {
+                    "type": "website",
+                    "url": "https://github.com/CycloneDX/cyclonedx-php-composer/#readme",
+                    "comment": "as detected from Composer manifest 'homepage'"
+                },
+                {
+                    "type": "issue-tracker",
+                    "url": "https://github.com/CycloneDX/cyclonedx-php-composer/issues",
+                    "comment": "as detected from Composer manifest 'support.issues'"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/CycloneDX/cyclonedx-php-composer/",
+                    "comment": "as detected from Composer manifest 'support.source'"
+                }
+            ],
+            "properties": [
+                {
+                    "name": "cdx:composer:package:distReference",
+                    "value": "934440a5ef7c3c3cdb58c3c3d389d412630ccbf6"
+                },
+                {
+                    "name": "cdx:composer:package:sourceReference",
+                    "value": "934440a5ef7c3c3cdb58c3c3d389d412630ccbf6"
+                },
+                {
+                    "name": "cdx:composer:package:type",
+                    "value": "composer-plugin"
+                },
+                {
+                    "name": "cdx:composer:package:isDevRequirement",
+                    "value": "true"
+                }
+            ]
+        },
+        {
+            "bom-ref": "opis/json-schema-2.6.0.0",
+            "type": "library",
+            "name": "json-schema",
+            "version": "2.6.0",
+            "group": "opis",
+            "description": "Json Schema Validator for PHP",
+            "author": "Sorin Sarca, Marius Sarca",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "Apache-2.0"
+                    }
+                }
+            ],
+            "purl": "pkg:composer/opis/json-schema@2.6.0",
+            "externalReferences": [
+                {
+                    "type": "distribution",
+                    "url": "https://api.github.com/repos/opis/json-schema/zipball/8458763e0dd0b6baa310e04f1829fc73da4e8c8a",
+                    "comment": "dist reference: 8458763e0dd0b6baa310e04f1829fc73da4e8c8a"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/opis/json-schema.git",
+                    "comment": "source reference: 8458763e0dd0b6baa310e04f1829fc73da4e8c8a"
+                },
+                {
+                    "type": "website",
+                    "url": "https://opis.io/json-schema",
+                    "comment": "as detected from Composer manifest 'homepage'"
+                },
+                {
+                    "type": "issue-tracker",
+                    "url": "https://github.com/opis/json-schema/issues",
+                    "comment": "as detected from Composer manifest 'support.issues'"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/opis/json-schema/tree/2.6.0",
+                    "comment": "as detected from Composer manifest 'support.source'"
+                }
+            ],
+            "properties": [
+                {
+                    "name": "cdx:composer:package:distReference",
+                    "value": "8458763e0dd0b6baa310e04f1829fc73da4e8c8a"
+                },
+                {
+                    "name": "cdx:composer:package:sourceReference",
+                    "value": "8458763e0dd0b6baa310e04f1829fc73da4e8c8a"
+                },
+                {
+                    "name": "cdx:composer:package:type",
+                    "value": "library"
+                },
+                {
+                    "name": "cdx:composer:package:isDevRequirement",
+                    "value": "true"
+                }
+            ]
+        },
+        {
+            "bom-ref": "opis/string-2.1.0.0",
+            "type": "library",
+            "name": "string",
+            "version": "2.1.0",
+            "group": "opis",
+            "description": "Multibyte strings as objects",
+            "author": "Marius Sarca, Sorin Sarca",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "Apache-2.0"
+                    }
+                }
+            ],
+            "purl": "pkg:composer/opis/string@2.1.0",
+            "externalReferences": [
+                {
+                    "type": "distribution",
+                    "url": "https://api.github.com/repos/opis/string/zipball/3e4d2aaff518ac518530b89bb26ed40f4503635e",
+                    "comment": "dist reference: 3e4d2aaff518ac518530b89bb26ed40f4503635e"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/opis/string.git",
+                    "comment": "source reference: 3e4d2aaff518ac518530b89bb26ed40f4503635e"
+                },
+                {
+                    "type": "website",
+                    "url": "https://opis.io/string",
+                    "comment": "as detected from Composer manifest 'homepage'"
+                },
+                {
+                    "type": "issue-tracker",
+                    "url": "https://github.com/opis/string/issues",
+                    "comment": "as detected from Composer manifest 'support.issues'"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/opis/string/tree/2.1.0",
+                    "comment": "as detected from Composer manifest 'support.source'"
+                }
+            ],
+            "properties": [
+                {
+                    "name": "cdx:composer:package:distReference",
+                    "value": "3e4d2aaff518ac518530b89bb26ed40f4503635e"
+                },
+                {
+                    "name": "cdx:composer:package:sourceReference",
+                    "value": "3e4d2aaff518ac518530b89bb26ed40f4503635e"
+                },
+                {
+                    "name": "cdx:composer:package:type",
+                    "value": "library"
+                },
+                {
+                    "name": "cdx:composer:package:isDevRequirement",
+                    "value": "true"
+                }
+            ]
+        },
+        {
+            "bom-ref": "opis/uri-1.1.0.0",
+            "type": "library",
+            "name": "uri",
+            "version": "1.1.0",
+            "group": "opis",
+            "description": "Build, parse and validate URIs and URI-templates",
+            "author": "Marius Sarca, Sorin Sarca",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "Apache-2.0"
+                    }
+                }
+            ],
+            "purl": "pkg:composer/opis/uri@1.1.0",
+            "externalReferences": [
+                {
+                    "type": "distribution",
+                    "url": "https://api.github.com/repos/opis/uri/zipball/0f3ca49ab1a5e4a6681c286e0b2cc081b93a7d5a",
+                    "comment": "dist reference: 0f3ca49ab1a5e4a6681c286e0b2cc081b93a7d5a"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/opis/uri.git",
+                    "comment": "source reference: 0f3ca49ab1a5e4a6681c286e0b2cc081b93a7d5a"
+                },
+                {
+                    "type": "website",
+                    "url": "https://opis.io",
+                    "comment": "as detected from Composer manifest 'homepage'"
+                },
+                {
+                    "type": "issue-tracker",
+                    "url": "https://github.com/opis/uri/issues",
+                    "comment": "as detected from Composer manifest 'support.issues'"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/opis/uri/tree/1.1.0",
+                    "comment": "as detected from Composer manifest 'support.source'"
+                }
+            ],
+            "properties": [
+                {
+                    "name": "cdx:composer:package:distReference",
+                    "value": "0f3ca49ab1a5e4a6681c286e0b2cc081b93a7d5a"
+                },
+                {
+                    "name": "cdx:composer:package:sourceReference",
+                    "value": "0f3ca49ab1a5e4a6681c286e0b2cc081b93a7d5a"
+                },
+                {
+                    "name": "cdx:composer:package:type",
+                    "value": "library"
+                },
+                {
+                    "name": "cdx:composer:package:isDevRequirement",
+                    "value": "true"
+                }
+            ]
+        },
+        {
+            "bom-ref": "package-url/packageurl-php-1.1.2.0",
+            "type": "library",
+            "name": "packageurl-php",
+            "version": "1.1.2",
+            "group": "package-url",
+            "description": "Builder and parser based on the package URL (purl) specification.",
+            "author": "Jan Kowalleck",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "MIT"
+                    }
+                }
+            ],
+            "purl": "pkg:composer/package-url/packageurl-php@1.1.2",
+            "externalReferences": [
+                {
+                    "type": "distribution",
+                    "url": "https://api.github.com/repos/package-url/packageurl-php/zipball/32058ad61f0d8b457fa26e7860bbd8b903196d3f",
+                    "comment": "dist reference: 32058ad61f0d8b457fa26e7860bbd8b903196d3f"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/package-url/packageurl-php.git",
+                    "comment": "source reference: 32058ad61f0d8b457fa26e7860bbd8b903196d3f"
+                },
+                {
+                    "type": "website",
+                    "url": "https://github.com/package-url/packageurl-php#readme",
+                    "comment": "as detected from Composer manifest 'homepage'"
+                },
+                {
+                    "type": "issue-tracker",
+                    "url": "https://github.com/package-url/packageurl-php/issues",
+                    "comment": "as detected from Composer manifest 'support.issues'"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/package-url/packageurl-php/tree/1.1.2",
+                    "comment": "as detected from Composer manifest 'support.source'"
+                }
+            ],
+            "properties": [
+                {
+                    "name": "cdx:composer:package:distReference",
+                    "value": "32058ad61f0d8b457fa26e7860bbd8b903196d3f"
+                },
+                {
+                    "name": "cdx:composer:package:sourceReference",
+                    "value": "32058ad61f0d8b457fa26e7860bbd8b903196d3f"
+                },
+                {
+                    "name": "cdx:composer:package:type",
+                    "value": "library"
+                },
+                {
+                    "name": "cdx:composer:package:isDevRequirement",
+                    "value": "true"
+                }
+            ]
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "composer/spdx-licenses-1.6.0.0"
+        },
+        {
+            "ref": "cyclonedx/cyclonedx-library-4.1.0.0",
+            "dependsOn": [
+                "opis/json-schema-2.6.0.0"
+            ]
+        },
+        {
+            "ref": "cyclonedx/cyclonedx-php-composer-6.2.0.0",
+            "dependsOn": [
+                "composer/spdx-licenses-1.6.0.0",
+                "cyclonedx/cyclonedx-library-4.1.0.0",
+                "package-url/packageurl-php-1.1.2.0"
+            ]
+        },
+        {
+            "ref": "opis/json-schema-2.6.0.0",
+            "dependsOn": [
+                "opis/string-2.1.0.0",
+                "opis/uri-1.1.0.0"
+            ]
+        },
+        {
+            "ref": "opis/string-2.1.0.0"
+        },
+        {
+            "ref": "opis/uri-1.1.0.0",
+            "dependsOn": [
+                "opis/string-2.1.0.0"
+            ]
+        },
+        {
+            "ref": "package-url/packageurl-php-1.1.2.0"
+        },
+        {
+            "ref": "prestashop/creditjet-dev-main",
+            "dependsOn": [
+                "cyclonedx/cyclonedx-php-composer-6.2.0.0"
+            ]
+        }
+    ]
+}
