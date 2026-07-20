@@ -25,12 +25,20 @@ namespace {
         {
             public bool $ajax = false;
 
-            public function initContent(): void {}
+            public function initContent() {}
+
+            public function postProcess() {}
         }
     }
 
     if (!class_exists('ModuleFrontController', false)) {
-        class ModuleFrontController extends FrontController {}
+        class ModuleFrontController extends FrontController
+        {
+            public function initContent()
+            {
+                parent::initContent();
+            }
+        }
     }
 
     if (!class_exists('Currency', false)) {

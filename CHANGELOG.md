@@ -7,6 +7,12 @@
 
 ## [Unreleased]
 
+## [1.9.1] - 2026-07-20
+
+### Fixed
+
+- Санитизиране на текстови полета в мейла към банката (премахване на `;` и нови редове), за да не се чупи форматът на заявката — продукт, количка и чекаут.
+
 ## [1.9.0] - 2026-07-20
 
 ### Added
@@ -42,6 +48,7 @@
 - Актуализация на Composer autoload и stubs.
 - Подобрена санитизация на входни данни в front контролерите и JS.
 
-[Unreleased]: https://github.com/wiley68/jet-ps8/compare/v1.9.0...HEAD
+[Unreleased]: https://github.com/wiley68/jet-ps8/compare/v1.9.1...HEAD
+[1.9.1]: https://github.com/wiley68/jet-ps8/releases/tag/v1.9.1
 [1.9.0]: https://github.com/wiley68/jet-ps8/releases/tag/v1.9.0
 [1.8.5]: https://github.com/wiley68/jet-ps8/releases/tag/v1.8.5

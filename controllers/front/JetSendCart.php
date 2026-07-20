@@ -1,5 +1,7 @@
 <?php
 
+use PrestaShop\Module\CreditJet\Util\JetBankMailSanitizer;
+
 class CreditJetJetSendCartModuleFrontController extends ModuleFrontController
 {
 
@@ -46,6 +48,12 @@ class CreditJetJetSendCartModuleFrontController extends ModuleFrontController
                 $jet_sign = 'евро';
                 break;
         }
+
+        $jet_name = JetBankMailSanitizer::field($jet_name);
+        $jet_lastname = JetBankMailSanitizer::field($jet_lastname);
+        $jet_egn = JetBankMailSanitizer::field($jet_egn);
+        $jet_phone = JetBankMailSanitizer::field($jet_phone);
+        $jet_email = JetBankMailSanitizer::field($jet_email);
 
         $body = "Данни за потребителя:\r\n";
 
@@ -112,6 +120,10 @@ class CreditJetJetSendCartModuleFrontController extends ModuleFrontController
                 $jet_product_vp = '';
             }
             $jet_product_vp = substr($jet_product_vp, 0, -2);
+
+            $product_c_txt = JetBankMailSanitizer::field($product_c_txt);
+            $product_m_txt = JetBankMailSanitizer::field($product_m_txt);
+            $jet_product_vp = JetBankMailSanitizer::field($jet_product_vp);
 
             $body .= "Тип стока: " . $product_c_txt . ";\r\n";
             $body .= "Марка: " . "(" . $jet_product_id . ") " . $product_m_txt .  $jet_product_vp . ";\r\n";

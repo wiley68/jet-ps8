@@ -1,5 +1,7 @@
 <?php
 
+use PrestaShop\Module\CreditJet\Util\JetBankMailSanitizer;
+
 class CreditJetJetSendModuleFrontController extends ModuleFrontController
 {
 
@@ -77,6 +79,15 @@ class CreditJetJetSendModuleFrontController extends ModuleFrontController
                 $jet_sign = 'евро';
                 break;
         }
+
+        $jet_name = JetBankMailSanitizer::field($jet_name);
+        $jet_lastname = JetBankMailSanitizer::field($jet_lastname);
+        $jet_egn = JetBankMailSanitizer::field($jet_egn);
+        $jet_phone = JetBankMailSanitizer::field($jet_phone);
+        $jet_email = JetBankMailSanitizer::field($jet_email);
+        $product_c_txt = JetBankMailSanitizer::field($product_c_txt);
+        $product_m_txt = JetBankMailSanitizer::field($product_m_txt);
+        $jet_product_vp = JetBankMailSanitizer::field($jet_product_vp);
 
         $body = "Данни за потребителя:\r\n";
 

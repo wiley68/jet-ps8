@@ -1,5 +1,7 @@
 <?php
 
+use PrestaShop\Module\CreditJet\Util\JetBankMailSanitizer;
+
 class CreditJetValidationModuleFrontController extends ModuleFrontController
 {
     /**
@@ -102,10 +104,11 @@ class CreditJetValidationModuleFrontController extends ModuleFrontController
                     break;
             }
 
-            $jet_name = $customer->firstname;
-            $jet_lastname = $customer->lastname;
-            $jet_email = $customer->email;
-            $jet_phone = $customer->getAddresses($this->context->language->id)[0]['phone'];
+            $jet_name = JetBankMailSanitizer::field($customer->firstname);
+            $jet_lastname = JetBankMailSanitizer::field($customer->lastname);
+            $jet_email = JetBankMailSanitizer::field($customer->email);
+            $jet_phone = JetBankMailSanitizer::field($customer->getAddresses($this->context->language->id)[0]['phone']);
+            $jet_egn = JetBankMailSanitizer::field($jet_egn);
 
             $body = "Данни за потребителя:\r\n";
 
@@ -173,6 +176,10 @@ class CreditJetValidationModuleFrontController extends ModuleFrontController
                 }
                 $jet_product_vp = substr($jet_product_vp, 0, -2);
 
+                $product_c_txt = JetBankMailSanitizer::field($product_c_txt);
+                $product_m_txt = JetBankMailSanitizer::field($product_m_txt);
+                $jet_product_vp = JetBankMailSanitizer::field($jet_product_vp);
+
                 $body .= "Тип стока: " . $product_c_txt . ";\r\n";
                 $body .= "Марка: " . "(" . $jet_product_id . ") " . $product_m_txt .  $jet_product_vp . ";\r\n";
                 $body .= "Единична цена с ДДС: " . number_format($product_p_txt, 2, ".", "") . ";\r\n";
@@ -192,7 +199,7 @@ class CreditJetValidationModuleFrontController extends ModuleFrontController
 
             $body .= "Размер на кредита: " . number_format($jet_priceall - $jet_parva, 2, '.', '') . ";\r\n";
             $body .= "Срок на изплащане в месеца: $jet_vnoski;\r\n";
-            $body .= "Месечна вноска: " . number_format(floatval($jet_vnoska), 2, '.', '') . "\r\n";
+            $body .= "Месечна вноска: " . number_format(floatval($jet_vnoska), 2, '.', '') . ";\r\n";
             $body .= "Първоначална вноска: " . number_format(floatval($jet_parva), 2, ".", "") . ";\r\n";
 
             $jetcredit_id = (string)Configuration::get('JET_ID');
