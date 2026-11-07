@@ -68,5 +68,5 @@ Desktop.ini
 *.tgz
 
 # Опционално: генерирани assets (ако имате build step към /dist или /public/build)
-# /dist/
+/dist/
 # /public/build/

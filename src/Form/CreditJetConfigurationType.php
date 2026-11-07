@@ -57,6 +57,7 @@ class CreditJetConfigurationType extends TranslatorAwareType
                     '3 месеца' => 3,
                     '6 месеца' => 6,
                     '9 месеца' => 9,
+                    '10 месеца' => 10,
                     '12 месеца' => 12,
                     '15 месеца' => 15,
                     '18 месеца' => 18,
